@@ -23,6 +23,16 @@ var GraphicsContext = {
     //	Get reference to the canvas context
     canvasCtx: canvas.getContext("2d"),
 
+    //******************************
+    //	Returne the size of canvas
+    //******************************
+    width: function() {
+        return this.canvas.width;
+    },
+    height: function() {
+        return this.canvas.height;
+    },
+
     //***************************
     //	Clear the whole canvas
     //***************************
@@ -30,9 +40,9 @@ var GraphicsContext = {
         this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
     },
 
-    //*******************************************
-    //	HTML5 Canvas functions wrap-ups
-    //*******************************************
+    //************************************************
+    //	HTML5 Canvas intrinsic functions wrap-ups
+    //************************************************
     drawImage: function(imgFrames, x, y, width, height) {
         return this.canvasCtx.drawImage(imgFrames, x, y, width, height);
 
@@ -107,9 +117,9 @@ var GameObject = function() {
     this.width = 0;
     this.height = 0;
 
-    //********************************************************************************
+    //********************************************************************
     //	Initialize the Game Object with top left coordinates and size
-    //********************************************************************************
+    //********************************************************************
     this.init = function(x, y, width, height) {
         this.x = x;
         this.y = y;
@@ -157,5 +167,4 @@ var GameObject = function() {
         return this.y + this.height / 2;
     };
 };
-
 

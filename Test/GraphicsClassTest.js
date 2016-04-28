@@ -20,38 +20,45 @@
 //	Test GraphicsContext.drawImg() method
 //***********************************************
 
-//***************************************************
-//	Test Sprite.init() methods
-//***************************************************
-var Sprite = new GameObject();
+//*******************************************************************
+//	Test GameObject.init() and GameObject.addImageFrame() methods
+//*******************************************************************
+var sprite = new GameObject();
 
-Sprite.init(0, 0, 130, 80);
-Sprite.addImageFrame("http://1.bp.blogspot.com/-siKMnTg6i1k/TxoF5feuXBI/AAAAAAAAAE0/QnsGu-GbfSs/s1600/rocket-md.png");
-Sprite.addImageFrame("http://i0.wp.com/peetlee.com/wp-content/uploads/2015/08/RocketSprite.png?resize=162%2C78");
-show(Sprite.getCenterX());
-show(Sprite.getCenterY());
-show(Sprite.width);
-show(Sprite.height);
-show(Sprite.url);
+sprite.init(0, 0, 130, 80);
+sprite.addImageFrame("http://1.bp.blogspot.com/-siKMnTg6i1k/TxoF5feuXBI/AAAAAAAAAE0/QnsGu-GbfSs/s1600/rocket-md.png");
+sprite.addImageFrame("http://i0.wp.com/peetlee.com/wp-content/uploads/2015/08/RocketSprite.png?resize=162%2C78");
+show(sprite.getCenterX());
+show(sprite.getCenterY());
+show(sprite.width);
+show(sprite.height);
 
-//*******************************************************************************
-//	Test Sprite.update() and Sprite.draw() methods
-//*******************************************************************************
+var background = new GameObject();
+background.init(0, 0, GraphicsContext.width(), GraphicsContext.height());
+background.addImageFrame("https://media1.giphy.com/media/hOWdRsPVHmGrK/200_s.gif");
+
+//*************************************************************
+//	Test GameObject.update() and GameObject.draw() methods
+//*************************************************************
 var x = 0,	
     y = 0,
     dy = 0;
 InputClass.listen();
 setInterval(function() {
 	dy = 0;
-	if (InputClass.lastMouseY - Sprite.getCenterY() != 0){
-	dy = (InputClass.lastMouseY - Sprite.getCenterY()) / Math.abs(InputClass.lastMouseY - Sprite.getCenterY());
+	if (InputClass.lastMouseY - sprite.getCenterY() != 0){
+	dy = (InputClass.lastMouseY - sprite.getCenterY()) / Math.abs(InputClass.lastMouseY - sprite.getCenterY());
 	}
 	y += dy * 0.5;
     GraphicsContext.clearCanvas();
-    var angle = Math.atan((InputClass.lastMouseY - Sprite.getCenterY()) / (InputClass.mouseX - Sprite.getCenterX()));
-    showText(InputClass.lastMouseY - Sprite.getCenterY());
-    Sprite.update(0, y, angle);
-    Sprite.draw();
+    var angle = Math.atan((InputClass.lastMouseY - sprite.getCenterY()) / (InputClass.mouseX - sprite.getCenterX()));
+    showText(InputClass.lastMouseY - sprite.getCenterY());
+    sprite.update(0, y, angle);
+    sprite.draw();
+    GraphicsContext.setGlobalComposition("destination-over");
+    background.update(0, 0, 0);
+    background.draw();
+    GraphicsContext.setGlobalComposition("source-over");
 }, 1);
 
 
