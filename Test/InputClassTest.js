@@ -4,6 +4,10 @@
 
 *************************************************************************************/
 
-
-
 "use strict";
+
+InputClass.listen();
+setInterval(function() {
+    showText(InputClass.mouseX + " " + InputClass.mouseY);
+});
+
