@@ -25,10 +25,9 @@
 //***************************************************
 //	Test Sprite.init() methods
 //***************************************************
-Sprite.init("http://1.bp.blogspot.com/-siKMnTg6i1k/TxoF5feuXBI/AAAAAAAAAE0/QnsGu-GbfSs/s1600/rocket-md.png"
-	,0, 0, 130, 80);
-show(Sprite.x);
-show(Sprite.y);
+Sprite.init("http://1.bp.blogspot.com/-siKMnTg6i1k/TxoF5feuXBI/AAAAAAAAAE0/QnsGu-GbfSs/s1600/rocket-md.png", 0, 0, 130, 80);
+show(Sprite.getCenterX());
+show(Sprite.getCenterY());
 show(Sprite.width);
 show(Sprite.height);
 show(Sprite.url);
@@ -36,10 +35,25 @@ show(Sprite.url);
 //***************************************************
 //	Test Sprite.update() and Sprite.draw() methods
 //***************************************************
-Sprite.update(1, 1, 30);
-Sprite.draw();
+var x = 0,	
+    y = 0,
+    dy = 0;
+InputClass.listen();
+setInterval(function() {
+	dy = 0;
+	if (InputClass.lastMouseY - Sprite.getCenterY() != 0){
+	dy = (InputClass.lastMouseY - Sprite.getCenterY()) / Math.abs(InputClass.lastMouseY - Sprite.getCenterY());
+	}
+	y += dy * 0.5;
+    GraphicsContext.clearCanvas();
+    var angle = Math.atan((InputClass.lastMouseY - Sprite.getCenterY()) / (InputClass.mouseX - Sprite.getCenterX()));
+    showText(InputClass.lastMouseY - Sprite.getCenterY());
+    Sprite.update(0, y, angle);
+    Sprite.draw();
+}, 1);
 
 //*************************************
 //	Test clearCanvas() method
 //*************************************
 // GraphicsContext.clearCanvas();
+
