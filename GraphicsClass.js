@@ -48,9 +48,9 @@ var GraphicsContext = {
 
     },
 
-    drawCircle: function(x, y, r, color) {
+    drawCircle: function(circle, color) {
         this.canvasCtx.beginPath();
-        this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
+        this.canvasCtx.arc(circle.center.x, circle.center.y, circle.r, 0, Math.PI * 2);
         this.canvasCtx.fillStyle = color;
         this.canvasCtx.fill();
     },

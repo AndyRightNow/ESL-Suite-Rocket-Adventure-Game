@@ -26,8 +26,8 @@ It's not a general purpose engine but actually a game prototype. This
 engine can only make this kind of game with limited functionalities. 
 For the sake of easier maintainence I make a engine instead of dumping
 codes around plainly in the file. The horizontal lines in the diagram 
-mean there is data communication between and vertical lines denote it's 
-funtionality.
+mean there is data communication between and vertical lines denote its 
+calling hierarchy.
 
 **Components:**
 
