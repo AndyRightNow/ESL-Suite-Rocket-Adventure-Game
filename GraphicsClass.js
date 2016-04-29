@@ -98,10 +98,6 @@ var GraphicsContext = {
 //************************
 var GameObject = function(x, y, width, height) {
 
-
-    //********************************************************************
-    //	Initialize the Game Object with top left coordinates, size and  
-    //********************************************************************
     //************************
     //	Game Object Images
     //************************
@@ -120,45 +116,45 @@ var GameObject = function(x, y, width, height) {
     //****************
     this.width = width || 0;
     this.height = height || 0;
+};
 
-    //***********************************************
-    //	Add image frame as animation
-    //***********************************************
-    this.addImageFrame = function(url) {
-        var tmpImg = new Image();
-        tmpImg.src = url;
-        this.imgFrames.push(tmpImg);
-    };
+//***********************************************
+//	Add image frame as animation
+//***********************************************
+GameObject.prototype.addImageFrame = function(url) {
+    var tmpImg = new Image();
+    tmpImg.src = url;
+    this.imgFrames.push(tmpImg);
+};
 
-    //*****************************************************
-    //	Update the Game Object's coordinates and facing angle
-    //*****************************************************
-    this.update = function(x, y, angle) {
-        this.x = x;
-        this.y = y;
-        this.thisImgFrame = this.imgFrames[this.imgIndex++ % this.imgFrames.length];
-        GraphicsContext.save();
-        GraphicsContext.translate(this.getCenterX(), this.getCenterY());
-        GraphicsContext.rotate(angle);
-        GraphicsContext.translate(-this.getCenterX(), -this.getCenterY());
-    };
+//*****************************************************
+//	Update the Game Object's coordinates and facing angle
+//*****************************************************
+GameObject.prototype.update = function(x, y, angle) {
+    this.x = x;
+    this.y = y;
+    this.thisImgFrame = this.imgFrames[this.imgIndex++ % this.imgFrames.length];
+    GraphicsContext.save();
+    GraphicsContext.translate(this.getCenterX(), this.getCenterY());
+    GraphicsContext.rotate(angle);
+    GraphicsContext.translate(-this.getCenterX(), -this.getCenterY());
+};
 
-    //***********************
-    //	Draw the Game Object
-    //***********************
-    this.draw = function() {
-        GraphicsContext.drawImage(this.thisImgFrame, this.x, this.y, this.width, this.height);
-        GraphicsContext.restore();
-    };
+//***********************
+//	Draw the Game Object
+//***********************
+GameObject.prototype.draw = function() {
+    GraphicsContext.drawImage(this.thisImgFrame, this.x, this.y, this.width, this.height);
+    GraphicsContext.restore();
+};
 
-    //**************************************
-    //	Get Game Object's center coordinates
-    //**************************************
-    this.getCenterX = function() {
-        return this.x + this.width / 2;
-    };
-    this.getCenterY = function() {
-        return this.y + this.height / 2;
-    };
+//**************************************
+//	Get Game Object's center coordinates
+//**************************************
+GameObject.prototype.getCenterX = function() {
+    return this.x + this.width / 2;
+};
+GameObject.prototype.getCenterY = function() {
+    return this.y + this.height / 2;
 };
 
