@@ -49,12 +49,10 @@ var GraphicsContext = {
     },
 
     drawCircle: function(x, y, r, color) {
-        this.canvasCtx.save();
         this.canvasCtx.beginPath();
         this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
         this.canvasCtx.fillStyle = color;
         this.canvasCtx.fill();
-        this.canvasCtx.restore();
     },
 
     drawRect: function(x, y, width, height, color) {
