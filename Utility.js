@@ -24,19 +24,9 @@ var Utility = {
 	},
 
 	colliDetect: function(obj1, obj2){
-
 	}
 };
 
-//**********************
-//	Game Timer
-//**********************
-var Timer = {
-	lastTick: 0,
-	currTick: 0,
-	start: function(){},
-	stop: function(){},
-	reset: function(){},
-	tick: function(){}
+var colliDetect = {
+	
 };
-

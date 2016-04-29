@@ -96,36 +96,30 @@ var GraphicsContext = {
 //************************
 //	General Game Object
 //************************
-var GameObject = function() {
+var GameObject = function(x, y, width, height) {
 
+
+    //********************************************************************
+    //	Initialize the Game Object with top left coordinates, size and  
+    //********************************************************************
     //************************
     //	Game Object Images
     //************************
     this.imgFrames = [];
-    this.thisImgFrame = undefined;
     this.imgIndex = 0;
+    this.thisImgFrame = this.imgFrames[this.imgIndex];
 
     //****************
     //	Coordinates
     //****************
-    this.x = 0;
-    this.y = 0;
+    this.x = x || 0;
+    this.y = y || 0;
 
     //****************
     //	Size
     //****************
-    this.width = 0;
-    this.height = 0;
-
-    //********************************************************************
-    //	Initialize the Game Object with top left coordinates and size
-    //********************************************************************
-    this.init = function(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    };
+    this.width = width || 0;
+    this.height = height || 0;
 
     //***********************************************
     //	Add image frame as animation
