@@ -14,7 +14,7 @@ Engine Structure:
 				|			|				 |					   |
 				|			|				 |					   |
 				|			|				 |					   |
-			UIClass-----Utillity--------GraphicsClass---------InputClass
+			UIClass-----Utillities--------GraphicsClass---------InputClass
 	   	 (DOM + jQuery)					(HTML5 Canvas)			
 	   		  /\
 			 /  \
@@ -41,9 +41,9 @@ funtionality.
 2. UIClass
 
    Responsible for the GUI and the game record displayed on the game canvas. It uses jQuery to manipulate the DOM on the game canvas. 
-3. Utility
+3. Utilities
 
-   Responsible for game record calculation and collision detection of objects.	It interacts with both UIClass and GraphicsClass.
+   Responsible for game record calculation and collision detection of objects and so forth.
 4. GraphicsClass
 
    Responsible for drawing the scene, including background, barriers, sprite, .etc.
