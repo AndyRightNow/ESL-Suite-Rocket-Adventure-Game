@@ -4,7 +4,7 @@
 <head>
   <title>JS Integration</title>
   <!-- Dependencies -->
-  <script type="text/javascript" src="Dependencies\jquery-1.12.3.js"></script>
+  <script src="Dependencies\jquery-1.12.3.js"></script>
   <!-- End -->
 </head>
 
@@ -14,33 +14,34 @@
 </body>
 <footer>
   <!-- Engine -->
-  <script type="text/javascript" src="EngineMain.js"></script>
-  <script type="text/javascript" src="GraphicsClass.js"></script>
-  <script type="text/javascript" src="UIClass.js"></script>
-  <script type="text/javascript" src="InputClass.js"></script>
-  <script type="text/javascript" src="Utility.js"></script>
+  <script src="EngineMain.js"></script>
+  <script src="GraphicsClass.js"></script>
+  <script src="UIClass.js"></script>
+  <script src="InputClass.js"></script>
+  <script src="Utility\Utility.js"></script>
+  <script src="Utility\Physics.js"></script>
+  <script src="Utility\Timer.js"></script>
   <!-- End -->
 
   <!-- Tests -->
-  <script type="text/javascript">
-    //  Get a reference to the canvas
-    var canvas = document.getElementById("canvas");
-
-    //***********************************
-    //  Show Test Results to the DOM
-    //***********************************
-    function show(str) {
-      $("<div>" + str + "</div>").appendTo("body");
-    }
-    function showText(str){
-      $(".showtext").text(str);
-    }
+  <script>
+		//***********************************
+		//  Show Test Results to the DOM
+		//***********************************
+		function show(str) {
+		  $("<div>" + str + "</div>").appendTo("body");
+		}
+		function showText(str){
+		  $(".showtext").text(str);
+		}
   </script>
-  <script type="text/javascript" src="Test\GraphicsClassTest.js"></script>
-  <!-- <script type="text/javascript" src="Test\UIClassTest.js"></script> -->
-  <!-- <script type="text/javascript" src="Test\InputClassTest.js"></script> -->
-  <!-- <script type="text/javascript" src="Test\UtilityTest.js"></script> -->
-  <!-- <script type="text/javascript" src="Test\EngineMainTest.js"></script> -->
+  <!-- <script src="Test\GraphicsClassTest.js"></script> -->
+  <!-- <script src="Test\UIClassTest.js"></script> -->
+  <!-- <script src="Test\InputClassTest.js"></script> -->
+  <!-- <script src="Test\EngineMainTest.js"></script> -->
+  <!-- <script src="Test\UtilityTest.js"></script> -->
+  <!-- <script src="Test\PhysicsTest.js"></script> -->
+  <!-- <script src="Test\TimerTest.js"></script> -->
   <!-- End -->
 </footer>
 </html>

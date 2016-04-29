@@ -5,8 +5,7 @@
 
 	Overview:
 
-	Responsible for game record calculation, collision detection of objects, barrier 
-	generation and other computations. It interacts with both UIClass and GraphicsClass.
+	General utilities.
 
 *************************************************************************************/
 
@@ -21,12 +20,5 @@ var Utility = {
 	//*********************************************
 	getRandIndex: function(upperbound){
 		return parseInt((Math.random() * upperbound + Math.random() * upperbound) % upperbound);
-	},
-
-	colliDetect: function(obj1, obj2){
 	}
-};
-
-var colliDetect = {
-	
 };

@@ -6,10 +6,10 @@
 
 "use strict";
 
-setTimeout(function() {
+setInterval(function() {
     //******************************************
-    //	Test getRandIndex() method
+    //	Test Utility.getRandIndex() method
     //******************************************
     showText(Utility.getRandIndex(20));
-}, 1);
+});
 
