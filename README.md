@@ -9,18 +9,14 @@ Engine Structure:
 									 |
 									 |
 									 |
-				----------------------------------------------------
-				|			|				 |					   |
-				|			|				 |					   |
-				|			|				 |					   |
-				|			|				 |					   |
-			UIClass-----Utillities--------GraphicsClass---------InputClass
-	   	 (DOM + jQuery)					(HTML5 Canvas)			
-	   		  /\
-			 /  \
-			/    \
-		   /      \
-		 GUI  GameRecord
+					----------------------------------------
+					|				 |					   |
+					|				 |					   |
+					|				 |					   |
+					|				 |					   |
+				Utillities--------GraphicsClass---------InputClass
+	   	               	          (HTML5 Canvas)			
+
 
 ##Engine Introduction:
 
@@ -38,16 +34,13 @@ funtionality.
 1. Engine Main
 
    It's the body of the engine, responsible for initializing and shutting down all the subsystems and components, and of course the main process of the game.
-2. UIClass
-
-   Responsible for the GUI and the game record displayed on the game canvas. It uses jQuery to manipulate the DOM on the game canvas. 
-3. Utilities
+2. Utilities
 
    Responsible for game record calculation and collision detection of objects and so forth.
-4. GraphicsClass
+3. GraphicsClass
 
    Responsible for drawing the scene, including background, barriers, sprite, .etc.
-5. InputClass
+4. InputClass
 
    Responsible for getting user's input(mouse movements) and sending the command to the GraphicsClass to animate the scene.
 
