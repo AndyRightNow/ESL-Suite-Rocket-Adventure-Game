@@ -55,12 +55,13 @@ drawVector(v);
 // });
 
 //**************************
-//	Test Vector.translate()
+//	Test Vector.rotate()
 //**************************
-// $("input").change(function(event){
-// 	var angle = parseInt($(event.target).val());
-// 	drawVector(v.rotate(angle));
-// });
+var angle = 0;
+setInterval(function(){
+    GraphicsContext.clearCanvas();
+    drawVector(v.rotate(angle++ * 0.00001));
+});
 
 //**************************
 //	Test Vector.scale()
