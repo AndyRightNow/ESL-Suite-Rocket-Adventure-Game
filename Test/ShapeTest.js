@@ -61,3 +61,14 @@
 //*****************************
 //	Test Polygon object
 //*****************************
+var points = [
+new Vector(20, 21), 
+new Vector(45,30),
+new Vector(15, 35)];
+var poly = new Polygon(points);
+GraphicsContext.drawPolygon(poly, "blue");
+
+//*********************************
+//	Test Polygon.translate() method
+//*********************************
+GraphicsContext.drawPolygon(poly.translate(20,20), "blue");

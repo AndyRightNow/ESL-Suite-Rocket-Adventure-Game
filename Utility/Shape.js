@@ -42,53 +42,60 @@ var Box = function(topLeftPosV, w, h) {
     this.h = h;
 };
 
-Box.prototype._getCenter = function(){
-	return new Vector((this.points[0].x + this.points[2].x) / 2, 
-		(this.points[0].y + this.points[2].y) / 2);
+Box.prototype._getCenter = function() {
+    return new Vector((this.points[0].x + this.points[2].x) / 2,
+        (this.points[0].y + this.points[2].y) / 2);
 };
 
 Box.prototype.translate = function(x, y) {
-	this.points[0].translate(x, y);
-	this.points[1].translate(x, y);
-	this.points[2].translate(x, y);
-	this.points[3].translate(x, y);
-	return this;
+    this.points[0].translate(x, y);
+    this.points[1].translate(x, y);
+    this.points[2].translate(x, y);
+    this.points[3].translate(x, y);
+    return this;
 };
 
-Box.prototype.rotate = function(angle){
-	var center = this._getCenter();
-	var cx = center.x, cy = center.y;
-	this.translate(-cx, -cy);
-	this.points[0].rotate(angle);
-	this.points[1].rotate(angle);
-	this.points[2].rotate(angle);
-	this.points[3].rotate(angle);
-	this.translate(cx, cy);
-	return this;
+Box.prototype.rotate = function(angle) {
+    var center = this._getCenter();
+    var cx = center.x,
+        cy = center.y;
+    this.translate(-cx, -cy);
+    this.points[0].rotate(angle);
+    this.points[1].rotate(angle);
+    this.points[2].rotate(angle);
+    this.points[3].rotate(angle);
+    this.translate(cx, cy);
+    return this;
 };
 
-Box.prototype.scale = function(x, y){
-	var center = this._getCenter();
-	var cx = center.x, cy = center.y;
-	this.translate(-cx, -cy);
-	this.points[0].scale(x, y);
-	this.points[1].scale(x, y);
-	this.points[2].scale(x, y);
-	this.points[3].scale(x, y);
-	this.translate(cx, cy);
-	return this;
+Box.prototype.scale = function(x, y) {
+    var center = this._getCenter();
+    var cx = center.x,
+        cy = center.y;
+    this.translate(-cx, -cy);
+    this.points[0].scale(x, y);
+    this.points[1].scale(x, y);
+    this.points[2].scale(x, y);
+    this.points[3].scale(x, y);
+    this.translate(cx, cy);
+    return this;
 };
+
 
 //**************************************
 //	Polygon Object and its operations
 //**************************************
 var Polygon = function(points) {
-	this.points = [];
-    points.forEach(function(){
-    	this.points.push(points[0]);
-    	points.shift();
-    });
-    this.topLeftPos = this.points[0];
+    this.points = [];
+    for (var i = 0; i < points.length; i++) {
+        this.points.push(points[i]);
+    }
 };
 
+Polygon.prototype.translate = function(x, y) {
+    for (var i = 0; i < this.points.length; i++) {
+        this.points[i].translate(x, y);
+    }
+    return this;
+};
 
