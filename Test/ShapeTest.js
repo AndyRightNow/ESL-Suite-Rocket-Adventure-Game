@@ -66,7 +66,7 @@ var points = [
 new Vector(0, 0),
 new Vector(20, 20),
 new Vector(0, 20)];
-var poly = new Polygon(new Vector(0, 0), 20, 20, points);
+var poly = new Polygon(points);
 GraphicsContext.drawPolygon(poly.box, "red");
 GraphicsContext.drawPolygon(poly, "blue");
 

@@ -85,12 +85,35 @@ Box.prototype.scale = function(x, y) {
 //**************************************
 //	Polygon Object and its operations
 //**************************************
-var Polygon = function(topLeftPosV, w, h, points) {
+var Polygon = function(points) {
     this.points = [];
+    //*********************************
+    //	Calculate the bounding box
+    //*********************************
+    var minX = GraphicsContext.width(), 
+    minY = GraphicsContext.height(), 
+    maxX = 0,
+    maxY = 0,
+    w = 0, 
+    h = 0;
     for (var i = 0; i < points.length; i++) {
         this.points.push(points[i]);
+        if (points[i].x < minX){
+        	minX = points[i].x;
+        }
+        if (points[i].y < minY){
+        	minY = points[i].y;
+        }
+        if (points[i].x > maxX){
+        	maxX = points[i].x;
+        }
+        if (points[i].y > maxY){
+        	maxY = points[i].y;
+        }
     }
-    this.box = new Box(topLeftPosV, w, h);
+    w = maxX - minX;
+    h = maxY - minY;
+    this.box = new Box(new Vector(minX, minY), w, h);
 };
 
 Polygon.prototype._getCenter = function() {
