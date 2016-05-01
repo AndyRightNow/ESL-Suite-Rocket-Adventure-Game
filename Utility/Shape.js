@@ -85,17 +85,47 @@ Box.prototype.scale = function(x, y) {
 //**************************************
 //	Polygon Object and its operations
 //**************************************
-var Polygon = function(points) {
+var Polygon = function(topLeftPosV, w, h, points) {
     this.points = [];
     for (var i = 0; i < points.length; i++) {
         this.points.push(points[i]);
     }
+    this.box = new Box(topLeftPosV, w, h);
+};
+
+Polygon.prototype._getCenter = function() {
+    return this.box._getCenter();
 };
 
 Polygon.prototype.translate = function(x, y) {
     for (var i = 0; i < this.points.length; i++) {
         this.points[i].translate(x, y);
     }
+    this.box.translate(x, y);
     return this;
 };
 
+Polygon.prototype.rotate = function(angle) {
+    var center = this._getCenter();
+    var cx = center.x,
+        cy = center.y;
+    this.translate(-cx, -cy);
+    for (var i = 0; i < this.points.length; i++) {
+    	this.points[i].rotate(angle);
+    }
+    this.box.rotate(angle);
+    this.translate(cx, cy);
+};
+
+Polygon.prototype.scale = function(x, y){
+    var center = this._getCenter();
+    var cx = center.x,
+        cy = center.y;
+    this.translate(-cx, -cy);
+    for (var i = 0; i < this.points.length; i++) {
+    	this.points[i].scale(x, y);
+    }
+    this.box.scale(x, y);
+    this.translate(cx, cy);
+    return this;
+};

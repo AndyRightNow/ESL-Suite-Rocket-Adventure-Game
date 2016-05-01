@@ -60,8 +60,9 @@ Vector.prototype.translate = function(x, y){
 
 Vector.prototype.rotate = function(angle){
 	var radian = angle * (Math.PI / 180);
-	this.x = this.x * Math.cos(radian) - this.y * Math.sin(radian);
-	this.y = this.x * Math.sin(radian) + this.y * Math.cos(radian);
+	var x = this.x;	//	Prevent pre-calculation
+	this.x = this.x * Math.cos(radian) + this.y * Math.sin(radian);
+	this.y = - x * Math.sin(radian) + this.y * Math.cos(radian);
 	return this;
 };
 

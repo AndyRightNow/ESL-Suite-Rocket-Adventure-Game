@@ -25,7 +25,7 @@
 //*****************************
 //	Test Box object
 //*****************************
-// var box = new Box(new Vector(50, 50), 20, 20);
+// var box = new Box(new Vector(50, 50), 20, 30);
 // GraphicsContext.drawPolygon(box, "blue");
 
 // //*********************************
@@ -42,6 +42,7 @@
 //*********************************
 //	Test Box.rotate() method
 //*********************************
+
 // var angle = 0;
 // setInterval(function(){
 // 	GraphicsContext.clearCanvas();
@@ -62,13 +63,33 @@
 //	Test Polygon object
 //*****************************
 var points = [
-new Vector(20, 21), 
-new Vector(45,30),
-new Vector(15, 35)];
-var poly = new Polygon(points);
+new Vector(0, 0),
+new Vector(20, 20),
+new Vector(0, 20)];
+var poly = new Polygon(new Vector(0, 0), 20, 20, points);
+GraphicsContext.drawPolygon(poly.box, "red");
+GraphicsContext.drawPolygon(poly, "blue");
+
+// //*********************************
+// //	Test Polygon.translate() method
+// //*********************************
+poly.translate(20, 20);
+GraphicsContext.drawPolygon(poly.box, "red");
 GraphicsContext.drawPolygon(poly, "blue");
 
 //*********************************
-//	Test Polygon.translate() method
+//	Test Polygon.rotate() method
 //*********************************
-GraphicsContext.drawPolygon(poly.translate(20,20), "blue");
+poly.translate(20, 20);
+poly.rotate(45);
+GraphicsContext.drawPolygon(poly.box, "red");
+GraphicsContext.drawPolygon(poly, "blue");
+
+
+//*********************************
+//	Test Polygon.rotate() method
+//*********************************
+poly.translate(20, 20);
+poly.scale(3, 2);
+GraphicsContext.drawPolygon(poly.box, "red");
+GraphicsContext.drawPolygon(poly, "blue");
