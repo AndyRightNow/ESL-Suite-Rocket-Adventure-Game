@@ -95,10 +95,16 @@ Vector.prototype.sub = function(v){
 
 Vector.prototype.project = function(axis){
 	var cof =  this.dot(axis) / axis.len2();
-	return axis.scale(cof);
+	var res = axis.scale(cof)
+	this.x = res.x;
+	this.y = res.y;
+	return this;
 };
 
 Vector.prototype.projectN = function(axis){
 	var cof =  this.dot(axis);
-	return axis.scale(cof);
+	var res = axis.scale(cof)
+	this.x = res.x;
+	this.y = res.y;
+	return this;
 };
