@@ -43,27 +43,75 @@ var poly2Points = [
 		new Vector(263, 173),
 		new Vector(256, 117)
 	];
-// setInterval(function() {
-//     poly1 = new Polygon(poly1Points, new Vector(InputClass.mouseX, InputClass.mouseY));
-//     poly2 = new Polygon(poly2Points);
-//     GraphicsContext.clearCanvas();
-//     GraphicsContext.drawPolygon(poly1, randColor());
-//     GraphicsContext.drawPolygon(poly2, randColor());
-// });
 
 //***********************************************************
 //	Test colliDetectHelper.flattenPolygonOnAxis() method
 //***********************************************************
+// poly2 = new Polygon(poly2Points);
+//     GraphicsContext.drawPolygon(poly2, randColor());
+
+// for (var i = 0; i < poly2.points.length; i++) {
+//     var axis;
+//     if (i === poly2.points.length - 1) {
+//         axis = colliDetectHelper.getEdge(poly2.points[i], poly2.points[0]);
+//     } 
+//     else {
+//         axis = colliDetectHelper.getEdge(poly2.points[i], poly2.points[i + 1]);
+//     }
+//     var minMaxPoints = colliDetectHelper.flattenPolygonOnAxis(poly2, axis);
+//     GraphicsContext.canvasCtx.beginPath();
+// 	GraphicsContext.canvasCtx.strokeStyle = "black";
+// 	GraphicsContext.canvasCtx.moveTo(minMaxPoints[0].x, minMaxPoints[0].y);
+// 	GraphicsContext.canvasCtx.lineTo(minMaxPoints[1].x, minMaxPoints[1].y);
+// 	GraphicsContext.canvasCtx.stroke();
+// 	GraphicsContext.canvasCtx.closePath();
+// }
+
+
+
+//***********************************************************
+//	Test colliDetect._isSeparatedAxis() method
+//***********************************************************
+// poly2 = new Polygon(poly2Points);
+// poly1 = new Polygon(poly1Points, poly2.points[2]);
+// GraphicsContext.clearCanvas();
+// GraphicsContext.drawPolygon(poly2, randColor());
+// GraphicsContext.drawPolygon(poly1, randColor());
+// for (var i = 0; i < poly2.points.length; i++) {
+//     var axis;
+//     if (i === poly2.points.length - 1) {
+//         axis = colliDetectHelper.getEdge(poly2.points[i], poly2.points[0]);
+//     } else {
+//         axis = colliDetectHelper.getEdge(poly2.points[i], poly2.points[i + 1]);
+//     }
+//     var res = colliDetect._isSeparatedAxis(poly1, poly2, axis);
+//     if (res) {
+//         show("Is Separated!");
+//     }
+//     else{
+//     	show("Not Separated!");
+//     }
+// }
+
+//***********************************************************
+//	Test colliDetect.detect() method
+//***********************************************************
+var angle = 0;
+poly1 = new Polygon(poly1Points, new Vector());
 poly2 = new Polygon(poly2Points);
+setInterval(function() {
+    GraphicsContext.clearCanvas();
+    GraphicsContext.drawPolygon(poly1, randColor());
     GraphicsContext.drawPolygon(poly2, randColor());
-var minMaxPoints = colliDetectHelper.flattenPolygonOnAxis(poly2, new Vector(1, 0));
-console.log(minMaxPoints);
-minMaxPoints[0].translate(0, 20);
-minMaxPoints[1].translate(0, 20);
-console.log(minMaxPoints);
-GraphicsContext.canvasCtx.beginPath();
-GraphicsContext.canvasCtx.strokeStyle = "black";
-GraphicsContext.canvasCtx.moveTo(minMaxPoints[0].x, minMaxPoints[0].y);
-GraphicsContext.canvasCtx.lineTo(minMaxPoints[1].x, minMaxPoints[1].y);
-GraphicsContext.canvasCtx.stroke();
-GraphicsContext.canvasCtx.closePath();
+    if (colliDetect.detect(poly1, poly2)) {
+        // showText("Touch");
+    } else {
+        // showText("No Touch");
+    }
+    poly1.translate(-poly1.box.points[0].x, -poly1.box.points[0].y);
+    poly1.translate(InputClass.mouseX, InputClass.mouseY);
+    poly1.rotate(angle);
+    poly2.rotate(angle);
+    angle += 0.0001;
+});
+

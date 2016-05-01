@@ -93,18 +93,15 @@ Vector.prototype.sub = function(v){
 	return this;
 };
 
+//**********************************
+//	No side effect and chaining
+//**********************************
 Vector.prototype.project = function(axis){
 	var cof =  this.dot(axis) / axis.len2();
-	var res = axis.scale(cof)
-	this.x = res.x;
-	this.y = res.y;
-	return this;
+	return axis.scale(cof);
 };
 
 Vector.prototype.projectN = function(axis){
 	var cof =  this.dot(axis);
-	var res = axis.scale(cof)
-	this.x = res.x;
-	this.y = res.y;
-	return this;
+	return axis.scale(cof);
 };
