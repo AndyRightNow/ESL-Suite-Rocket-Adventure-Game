@@ -104,7 +104,7 @@ var GraphicsContext = {
 //************************
 //  General Game Object
 //************************
-var GameObject = function(x, y, width, height) {
+var ImageObject = function(x, y, width, height) {
 
     //************************
     //  Game Object Images
@@ -129,7 +129,7 @@ var GameObject = function(x, y, width, height) {
 //***********************************************
 //  Add image frame as animation
 //***********************************************
-GameObject.prototype.addImageFrame = function(url) {
+ImageObject.prototype.addImageFrame = function(url) {
     var tmpImg = new Image();
     tmpImg.src = url;
     this.imgFrames.push(tmpImg);
@@ -138,7 +138,7 @@ GameObject.prototype.addImageFrame = function(url) {
 //*****************************************************
 //  Update the Game Object's coordinates and facing angle
 //*****************************************************
-GameObject.prototype.update = function(x, y, angle) {
+ImageObject.prototype.update = function(x, y, angle) {
     this.x = x;
     this.y = y;
     this.thisImgFrame = this.imgFrames[this.imgIndex++ % this.imgFrames.length];
@@ -151,7 +151,7 @@ GameObject.prototype.update = function(x, y, angle) {
 //***********************
 //  Draw the Game Object
 //***********************
-GameObject.prototype.draw = function() {
+ImageObject.prototype.draw = function() {
     GraphicsContext.drawImage(this.thisImgFrame, this.x, this.y, this.width, this.height);
     GraphicsContext.restore();
 };
@@ -159,10 +159,10 @@ GameObject.prototype.draw = function() {
 //**************************************
 //  Get Game Object's center coordinates
 //**************************************
-GameObject.prototype.getCenterX = function() {
+ImageObject.prototype.getCenterX = function() {
     return this.x + this.width / 2;
 };
-GameObject.prototype.getCenterY = function() {
+ImageObject.prototype.getCenterY = function() {
     return this.y + this.height / 2;
 };
 

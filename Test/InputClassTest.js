@@ -13,6 +13,6 @@ InputClass.listen();
 //	Test Mouse Coordinates
 //****************************************
 setInterval(function() {
-    showText(InputClass.lastMouseX + " " + InputClass.lastMouseY);
+    showText(InputClass.mouseX + " " + InputClass.mouseY);
 });
 

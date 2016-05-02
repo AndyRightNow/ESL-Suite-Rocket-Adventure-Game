@@ -21,9 +21,9 @@
 //***********************************************
 
 //*******************************************************************
-//	Test GameObject.init() and GameObject.addImageFrame() methods
+//	Test ImageObject.init() and ImageObject.addImageFrame() methods
 //*******************************************************************
-var sprite = new GameObject(0, 0, 130, 80);
+var sprite = new ImageObject(0, 0, 130, 80);
 
 sprite.addImageFrame("http://1.bp.blogspot.com/-siKMnTg6i1k/TxoF5feuXBI/AAAAAAAAAE0/QnsGu-GbfSs/s1600/rocket-md.png");
 show(sprite.getCenterX());
@@ -31,11 +31,11 @@ show(sprite.getCenterY());
 show(sprite.width);
 show(sprite.height);
 
-var background = new GameObject(0, 0, GraphicsContext.width(), GraphicsContext.height());
+var background = new ImageObject(0, 0, GraphicsContext.width(), GraphicsContext.height());
 background.addImageFrame("https://media1.giphy.com/media/hOWdRsPVHmGrK/200_s.gif");
 
 //*************************************************************
-//	Test GameObject.update() and GameObject.draw() methods
+//	Test ImageObject.update() and ImageObject.draw() methods
 //*************************************************************
 var x = 0,	
     y = 0,

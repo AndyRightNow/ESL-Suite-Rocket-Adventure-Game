@@ -21,24 +21,25 @@ var InputClass = {
     //*******************************************
     mouseX: 0,
     mouseY: 0,
-    lastMouseX: 0,
-    lastMouseY: 0,
+    _lastMouseX: 0,
+    _lastMouseY: 0,
 
     //Listen to the user input and get the members data
     listen: function() {
-
+    	var canvasOffsetLeft = $(GraphicsContext.canvas).offset().left;
+    	var canvasOffsetTop = $(GraphicsContext.canvas).offset().top;
         //*******************************
         //	Get the mouse coordinates
         //*******************************
         document.addEventListener("mousemove", function(event) {
             if (InputClass.mouseMove) {
-                InputClass.mouseX = event.pageX;
-                InputClass.mouseY = event.pageY;
-                InputClass.lastMouseX = InputClass.mouseX;
-                InputClass.lastMouseY = InputClass.mouseY;
+                InputClass.mouseX = event.pageX - canvasOffsetLeft;
+                InputClass.mouseY = event.pageY - canvasOffsetTop;
+                InputClass._lastMouseX = InputClass.mouseX;
+                InputClass._lastMouseY = InputClass.mouseY;
             } else {
-                InputClass.mouseX = 0;
-                InputClass.mouseY = 0;
+                InputClass.mouseX = InputClass._lastMouseX;
+                InputClass.mouseY = InputClass._lastMouseY
             }
         });
 
