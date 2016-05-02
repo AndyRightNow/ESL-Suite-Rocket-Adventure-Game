@@ -14,7 +14,7 @@
 
 var InputClass = {
     //	Mouse movement state
-    mouseMove: false,
+    _mouseMove: false,
 
     //*******************************************
     //	Mouse coordinates relative to the canvas    
@@ -24,6 +24,9 @@ var InputClass = {
     _lastMouseX: 0,
     _lastMouseY: 0,
 
+    //  Click the canvas count
+    clickCount: 0,
+
     //Listen to the user input and get the members data
     listen: function() {
     	var canvasOffsetLeft = $(GraphicsContext.canvas).offset().left;
@@ -32,7 +35,7 @@ var InputClass = {
         //	Get the mouse coordinates
         //*******************************
         document.addEventListener("mousemove", function(event) {
-            if (InputClass.mouseMove) {
+            if (InputClass._mouseMove) {
                 InputClass.mouseX = event.pageX - canvasOffsetLeft;
                 InputClass.mouseY = event.pageY - canvasOffsetTop;
                 InputClass._lastMouseX = InputClass.mouseX;
@@ -47,10 +50,18 @@ var InputClass = {
         //	Get the mouse movement state
         //*******************************
         canvas.addEventListener("mouseenter", function(event) {
-            InputClass.mouseMove = true;
+            InputClass._mouseMove = true;
         });
         canvas.addEventListener("mouseout", function(event) {
-            InputClass.mouseMove = false;
+            InputClass._mouseMove = false;
+        });
+
+        //*******************************
+        //  Get clicks count
+        //*******************************
+        canvas.addEventListener("click", function(event){
+            this.clickCount++;
+            show("click");
         });
     }
 };
