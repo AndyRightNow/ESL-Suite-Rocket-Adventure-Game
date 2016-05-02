@@ -60,8 +60,7 @@ var InputClass = {
         //  Get clicks count
         //*******************************
         canvas.addEventListener("click", function(event){
-            this.clickCount++;
-            show("click");
+            InputClass.clickCount++;
         });
     }
 };
