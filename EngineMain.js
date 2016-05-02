@@ -54,17 +54,35 @@
 
 "use strict";
 
-var Engine = {
-	//****************************
-	//	Members
-	//****************************
-	mUI : "",
-	mGraphics : "",
-	mInput : "",
-	//****************************
-	//	Member Functions
-	//****************************
-	init : function(){},
-	shutdown : function(){},
-	run : function(){}
-};
+//***************************
+//	Main game loop
+//	Use window.setInterval() because don't want to hang the 
+//	main web page thread.
+//***************************
+
+//	Start to listen to the user input
+InputClass.listen();
+
+var isStop = true;
+
+//*******************
+//	Mouse position
+//*******************
+var mouseX, mouseY;
+
+var MainGameLoop = setInterval(function() {
+
+    if (InputClass.clickCount != 0) {
+        isStop = false;
+    }
+    if (isStop) {
+        //****************************
+        //	Show pause scene
+        //****************************
+    } else {
+        mouseX = InputClass.mouseX;
+        mouseY = InputClass.mouseY;
+        showText(mouseX + " " + mouseY);
+    }
+});
+

@@ -14,7 +14,6 @@
 </body>
 <footer>
   <!-- Engine -->
-  <script src="EngineMain.js"></script>
   <script src="GraphicsClass.js"></script>
   <script src="InputClass.js"></script>
   <script src="Utility\Utility.js"></script>
@@ -23,27 +22,30 @@
   <script src="Utility\Vector.js"></script>
   <script src="Utility\Shape.js"></script>
   <!-- End -->
-
   <!-- Tests -->
   <script>
-		//***********************************
-		//  Show Test Results to the DOM
-		//***********************************
-		function show(str) {
-		  $("<div>" + str + "</div>").appendTo("body");
-		}
-		function showText(str){
-		  $(".showtext").text(str);
-		}
+  //***********************************
+  //  Show Test Results to the DOM
+  //***********************************
+  function show(str) {
+    $("<div>" + str + "</div>").appendTo("body");
+  }
+
+  function showText(str) {
+    $(".showtext").text(str);
+  }
   </script>
   <!-- <script src="Test\GraphicsClassTest.js"></script> -->
-  <script src="Test\InputClassTest.js"></script>
-  <!-- <script src="Test\EngineMainTest.js"></script> -->
+  <!-- <script src="Test\InputClassTest.js"></script> -->
   <!-- <script src="Test\UtilityTest.js"></script> -->
   <!-- <script src="Test\PhysicsTest.js"></script> -->
   <!-- <script src="Test\TimerTest.js"></script> -->
   <!-- <script src="Test\VectorTest.js"></script> -->
   <!-- <script src="Test\ShapeTest.js"></script> -->
   <!-- End -->
+  <!-- EngineMain -->
+  <script src="EngineMain.js"></script>
+  <!-- End -->
 </footer>
+
 </html>
