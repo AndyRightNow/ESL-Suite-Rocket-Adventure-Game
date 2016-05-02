@@ -102,12 +102,12 @@ var GraphicsContext = {
 };
 
 //************************
-//  General Game Object
+//  General Image Object
 //************************
 var ImageObject = function(x, y, width, height) {
 
     //************************
-    //  Game Object Images
+    //  Image Object Images
     //************************
     this.imgFrames = [];
     this.imgIndex = 0;
@@ -136,7 +136,7 @@ ImageObject.prototype.addImageFrame = function(url) {
 };
 
 //*****************************************************
-//  Update the Game Object's coordinates and facing angle
+//  Update the Image Object's coordinates and facing angle
 //*****************************************************
 ImageObject.prototype.update = function(x, y, angle) {
     this.x = x;
@@ -149,7 +149,7 @@ ImageObject.prototype.update = function(x, y, angle) {
 };
 
 //***********************
-//  Draw the Game Object
+//  Draw the Image Object
 //***********************
 ImageObject.prototype.draw = function() {
     GraphicsContext.drawImage(this.thisImgFrame, this.x, this.y, this.width, this.height);
@@ -157,7 +157,7 @@ ImageObject.prototype.draw = function() {
 };
 
 //**************************************
-//  Get Game Object's center coordinates
+//  Get Image Object's center coordinates
 //**************************************
 ImageObject.prototype.getCenterX = function() {
     return this.x + this.width / 2;
@@ -166,3 +166,17 @@ ImageObject.prototype.getCenterY = function() {
     return this.y + this.height / 2;
 };
 
+var UIClass = {
+    //*******************************************
+    //  Show the pause scene, 
+    //  i.e. the line of word "Click to start" 
+    //  and the gray background
+    //*******************************************
+    showPauseScene: function(){
+        GraphicsContext.save();
+        GraphicsContext.canvasCtx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        GraphicsContext.canvasCtx.fillRect(0, 0, GraphicsContext.width(), GraphicsContext.height());
+        GraphicsContext.restore();
+    },
+
+};

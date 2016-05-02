@@ -54,31 +54,53 @@
 
 "use strict";
 
-//***************************
-//	Main game loop
+//***********************************************************************
+//								Main game loop
 //	Use window.setInterval() because don't want to hang the 
 //	main web page thread.
-//***************************
+//***********************************************************************
 
 //	Start to listen to the user input
 InputClass.listen();
 
-var isStop = true;
 
-//*******************
-//	Mouse position
-//*******************
-var mouseX, mouseY;
+var isStop = true, //	Game loop start and pause flag
+
+    mouseX, mouseY, //	Mouse position
+
+    //******************************
+    //	Game background objects
+    //******************************
+    gameSky, //	Sky background
+    cloudsCount = 3, //	Sky clouds count
+    gameSkyClouds = new Array(cloudsCount), //	Sky clouds objects 
+
+    //******************************
+    //	Game sprite
+    //******************************
+    spriteWidth,
+    spriteHeight,
+    gameSprite = new ImageObject(0, 0, spriteWidth, spriteHeight);
 
 var MainGameLoop = setInterval(function() {
-
+    //********************************
+    //	Check if the user clicks
+    //********************************
     if (InputClass.clickCount != 0) {
         isStop = false;
     }
+    //	Clear all
+    GraphicsContext.clearCanvas();
+
+    //*******************************
+    //	Show basic game animation
+    //*******************************
+
     if (isStop) {
         //****************************
         //	Show pause scene
         //****************************
+        UIClass.showPauseScene();
     } else {
         mouseX = InputClass.mouseX;
         mouseY = InputClass.mouseY;
