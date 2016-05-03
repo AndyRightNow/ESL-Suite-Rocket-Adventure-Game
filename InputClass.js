@@ -1,23 +1,23 @@
 /*************************************************************************************
-									Input Class
+                                    Input Class
 
-								Created By Andy Zhou
+                                Created By Andy Zhou
 
-	Overview:
+    Overview:
 
-	Responsible for getting user's input(mouse movements) and sending the 
-	command	to the GraphicsClass to animate the scene.
+    Responsible for getting user's input(mouse movements) and sending the 
+    command to the GraphicsClass to animate the scene.
 
 *************************************************************************************/
 
 "use strict";
 
 var InputClass = {
-    //	Mouse movement state
+    //  Mouse movement state
     _mouseMove: false,
 
     //*******************************************
-    //	Mouse coordinates relative to the canvas    
+    //  Mouse coordinates relative to the canvas    
     //*******************************************
     mouseX: 0,
     mouseY: 0,
@@ -30,10 +30,10 @@ var InputClass = {
 
     //Listen to the user input and get the members data
     listen: function() {
-    	var canvasOffsetLeft = $(GraphicsContext.canvas).offset().left;
-    	var canvasOffsetTop = $(GraphicsContext.canvas).offset().top;
+        var canvasOffsetLeft = $(GraphicsContext.canvas).offset().left;
+        var canvasOffsetTop = $(GraphicsContext.canvas).offset().top;
         //*******************************
-        //	Get the mouse coordinates
+        //  Get the mouse coordinates
         //*******************************
         document.addEventListener("mousemove", function(event) {
             if (InputClass._mouseMove) {
@@ -48,7 +48,7 @@ var InputClass = {
         });
 
         //*******************************
-        //	Get the mouse movement state
+        //  Get the mouse movement state
         //*******************************
         canvas.addEventListener("mouseenter", function(event) {
             InputClass._mouseMove = true;
@@ -60,13 +60,23 @@ var InputClass = {
         //*******************************
         //  Get clicks count
         //*******************************
-        canvas.addEventListener("click", function(event){
+        canvas.addEventListener("click", function(event) {
             InputClass.clickCount++;
             InputClass.lastClick.x = InputClass.mouseX;
             InputClass.lastClick.y = InputClass.mouseY;
             //*****************************************************************DEBUG***********************************************
             // show(InputClass.lastClick.x + " " + InputClass.lastClick.y);
         });
+    },
+
+    reset: function() {
+        this._mouseMove = false;
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this._lastMouseX = 0;
+        this._lastMouseY = 0;
+        this.clickCount = 0;
+        this.lastClick = new Vector();
     }
 };
 

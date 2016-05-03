@@ -146,7 +146,8 @@ var MainGameLoop = setInterval(function() {
         //	Show pause scene
         //****************************
         UIClass.showPauseScene();
-    } else {
+    } else {    
+    	//*************************************************************************DEBUG*******************************************
         // showText(mouseX + " " + mouseY);
     }
 });
