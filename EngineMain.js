@@ -76,10 +76,10 @@ var spriteWidth = 180,
         spriteBounding),
 
     spriteFrames = [ //	Use to compose sprite animation
-    "https://farm8.staticflickr.com/7577/26692103932_d9cbb46af4_o.png",
-    "https://farm8.staticflickr.com/7474/26513247190_8b60583227_o.png",
-    "https://farm8.staticflickr.com/7594/26692103992_19c74bf01b_o.png",
-    "https://farm8.staticflickr.com/7574/26182211423_5021619ef1_o.png"];
+    "img/Sprite/1.png",
+    "img/Sprite/2.png",
+    "img/Sprite/3.png",
+    "img/Sprite/4.png"];
 
 for (var i = 0; i < spriteFrames.length; i++) { //	Add frames to the sprite
     gameSprite.addImageFrame(spriteFrames[i]);
@@ -139,9 +139,8 @@ var MainGameLoop = setInterval(function() {
         //	Show pause scene
         //****************************
         UIClass.showPauseScene();
-    } else {    
-    	//*************************************************************************DEBUG*******************************************
-        // showText(mouseX + " " + mouseY);
+    } else { 
+
     }
 });
 
