@@ -1,16 +1,16 @@
 /*************************************************************************************
-										Shape Class
+                                        Shape Class
 
-								   Created By Andy Zhou
+                                   Created By Andy Zhou
 
-	Overview:
+    Overview:
 
-	Shapes using vectors to denote the position and size
+    Shapes using vectors to denote the position and size
 
 *************************************************************************************/
 
 //**************************************
-//	Circle Object and its operations
+//  Circle Object and its operations
 //**************************************
 var Circle = function(centerV, r) {
     this.center = centerV;
@@ -28,15 +28,15 @@ Circle.prototype.scale = function(scalar) {
 };
 
 //**************************************
-//	Box Object and its operations
+//  Box Object and its operations
 //**************************************
 var Box = function(topLeftPosV, w, h) {
     this.points = [
     new Vector(topLeftPosV.x, topLeftPosV.y),
-	new Vector(topLeftPosV.x + w, topLeftPosV.y),
-	new Vector(topLeftPosV.x + w, topLeftPosV.y + h),
-	new Vector(topLeftPosV.x, topLeftPosV.y + h)
-	];
+    new Vector(topLeftPosV.x + w, topLeftPosV.y),
+    new Vector(topLeftPosV.x + w, topLeftPosV.y + h),
+    new Vector(topLeftPosV.x, topLeftPosV.y + h)
+    ];
     this.topLeftPos = this.points[0];
     this.w = w;
     this.h = h;
@@ -83,40 +83,52 @@ Box.prototype.scale = function(x, y) {
 
 
 //**************************************
-//	Polygon Object and its operations
+//  Polygon Object and its operations
 //**************************************
-var Polygon = function(points, topLeftPosV) {
+var Polygon = function(points, topLeftPosV, box) {
+    this._totalRotation = 0;
     this.points = [];
     //*********************************
-    //	Calculate the bounding box
+    //  Calculate the bounding box
     //*********************************
-    var minX = GraphicsContext.width(), 
-    minY = GraphicsContext.height(), 
-    maxX = 0,
-    maxY = 0,
-    w = 0, 
-    h = 0;
+    var minX = GraphicsContext.width(),
+        minY = GraphicsContext.height(),
+        maxX = 0,
+        maxY = 0,
+        w = 0,
+        h = 0;
     for (var i = 0; i < arguments[0].length; i++) {
         this.points.push(arguments[0][i]);
-        if (arguments[0][i].x < minX){
-        	minX = arguments[0][i].x;
+        if (arguments[0][i].x < minX) {
+            minX = arguments[0][i].x;
         }
-        if (arguments[0][i].y < minY){
-        	minY = arguments[0][i].y;
+        if (arguments[0][i].y < minY) {
+            minY = arguments[0][i].y;
         }
-        if (arguments[0][i].x > maxX){
-        	maxX = arguments[0][i].x;
+        if (arguments[0][i].x > maxX) {
+            maxX = arguments[0][i].x;
         }
-        if (arguments[0][i].y > maxY){
-        	maxY = arguments[0][i].y;
+        if (arguments[0][i].y > maxY) {
+            maxY = arguments[0][i].y;
         }
     }
     w = maxX - minX;
     h = maxY - minY;
     this.box = new Box(new Vector(minX, minY), w, h);
-    if (arguments.length > 1){
-        this.translate(-minX, -minY);
-        this.translate(topLeftPosV.x, topLeftPosV.y);
+
+    //****************************
+    //  Check arguments list
+    //****************************
+    switch (arguments.length) {
+        case 3:
+            this.box = box;
+            this.translate(-this.box.points[0].x, -this.box.points[0].y);
+            this.translate(topLeftPosV.x, topLeftPosV.y);
+            break;
+        case 2:
+            this.translate(-minX, -minY);
+            this.translate(topLeftPosV.x, topLeftPosV.y);
+            break;
     }
 };
 
@@ -133,26 +145,32 @@ Polygon.prototype.translate = function(x, y) {
 };
 
 Polygon.prototype.rotate = function(angle) {
+    this._totalRotation += angle;
     var center = this._getCenter();
     var cx = center.x,
         cy = center.y;
     this.translate(-cx, -cy);
     for (var i = 0; i < this.points.length; i++) {
-    	this.points[i].rotate(angle);
+        this.points[i].rotate(angle);
     }
     this.box.rotate(angle);
     this.translate(cx, cy);
 };
 
-Polygon.prototype.scale = function(x, y){
+Polygon.prototype.clearRotation = function() {
+    this.rotate(-this._totalRotation);
+};
+
+Polygon.prototype.scale = function(x, y) {
     var center = this._getCenter();
     var cx = center.x,
         cy = center.y;
     this.translate(-cx, -cy);
     for (var i = 0; i < this.points.length; i++) {
-    	this.points[i].scale(x, y);
+        this.points[i].scale(x, y);
     }
     this.box.scale(x, y);
     this.translate(cx, cy);
     return this;
 };
+

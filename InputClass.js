@@ -26,6 +26,7 @@ var InputClass = {
 
     //  Click the canvas count
     clickCount: 0,
+    lastClick: new Vector(),
 
     //Listen to the user input and get the members data
     listen: function() {
@@ -61,6 +62,10 @@ var InputClass = {
         //*******************************
         canvas.addEventListener("click", function(event){
             InputClass.clickCount++;
+            InputClass.lastClick.x = InputClass.mouseX;
+            InputClass.lastClick.y = InputClass.mouseY;
+            //*****************************************************************DEBUG***********************************************
+            // show(InputClass.lastClick.x + " " + InputClass.lastClick.y);
         });
     }
 };
