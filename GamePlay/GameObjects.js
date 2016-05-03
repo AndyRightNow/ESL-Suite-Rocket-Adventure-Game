@@ -4,7 +4,7 @@
                                     Created By Andy
 
     Overview:
-    General game object class containing all information necessary and objects declarations
+    General game object class containing all information necessary
 
 ***********************************************************************************************/
 
@@ -14,7 +14,7 @@
 //************************
 //  General Image Object
 //************************
-var ImageObject = function(x, y, width, height) {
+var ImageObject = function(x, y, width, height, poly) {
 
     //************************
     //  Image Object Images
@@ -34,6 +34,11 @@ var ImageObject = function(x, y, width, height) {
     //****************
     this.width = width || 0;
     this.height = height || 0;
+
+    //*******************
+    //	Object bounding
+    //*******************
+    this.bounding = poly || null;
 };
 
 //***********************************************
@@ -48,14 +53,19 @@ ImageObject.prototype.addImageFrame = function(url) {
 //*****************************************************
 //  Update the Image Object's coordinates and facing angle
 //*****************************************************
-ImageObject.prototype.update = function(x, y, angle) {
-    this.x = x;
-    this.y = y;
+ImageObject.prototype.update = function(angle, ax, ay) {
+    this.x += ax;
+    this.y += ay;
     this.thisImgFrame = this.imgFrames[this.imgIndex++ % this.imgFrames.length];
     GraphicsContext.save();
     GraphicsContext.translate(this.getCenterX(), this.getCenterY());
     GraphicsContext.rotate(angle);
     GraphicsContext.translate(-this.getCenterX(), -this.getCenterY());
+    if (this.bounding !== null && this.bounding !== undefined){
+        this.bounding.clearRotation();
+        this.bounding.rotate(-angle * (180 / Math.PI));
+        this.bounding.translate(ax, ay);
+    }
 };
 
 //***********************

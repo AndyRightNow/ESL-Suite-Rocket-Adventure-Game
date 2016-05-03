@@ -45,7 +45,6 @@ var spriteWidth = 180,
     spriteCenterY,
     spriteCenterX,
     spriteAngle = 0, //	Angle between the direction the sprite is point at and the x axis
-    spriteTotalRotation = 0,
     spriteAy = 0, //	Vertical acceleration 
     spriteAyCoef = 1.7, //	Acceleration coefficient, used to scale up or down the acceleration
 
@@ -70,10 +69,11 @@ var spriteWidth = 180,
     spriteBounding = new Polygon(spriteBoundingPoints, spriteTopLeftPos, spriteBoundingBox),
 
     gameSprite = new ImageObject(
-        spriteTopLeftPos.y,
+        spriteTopLeftPos.x,
         spriteTopLeftPos.y,
         spriteWidth,
-        spriteHeight),
+        spriteHeight,
+        spriteBounding),
 
     spriteFrames = [ //	Use to compose sprite animation
     "https://farm8.staticflickr.com/7577/26692103932_d9cbb46af4_o.png",
@@ -106,37 +106,30 @@ var MainGameLoop = setInterval(function() {
     //*******************************
     spriteCenterY = gameSprite.getCenterY();
     spriteCenterX = gameSprite.getCenterX();
+    
     if (mouseY != spriteCenterY) {
         spriteAy = (mouseY - spriteCenterY) * spriteAyCoef / GraphicsContext.height();
     }
 
-    spriteTopLeftPos.y += spriteAy;
-
     spriteAngle = (Math.atan((mouseY - spriteCenterY) / (mouseX - spriteCenterX))  * (180 / Math.PI))  * 0.025;
-    spriteTotalRotation += spriteAngle;
 
     //*************************************************************************DEBUG*******************************************
     // showText(spriteAngle);
 
-    gameSprite.update(spriteTopLeftPos.x, spriteTopLeftPos.y, spriteAngle);
-	spriteBounding.clearRotation();
-	spriteBounding.rotate(-spriteAngle * (180 / Math.PI));
-    spriteBounding.translate(0, spriteAy);	//	No horizontal translation happening
-
+    gameSprite.update(spriteAngle, 0, spriteAy);
     gameSprite.draw();
 
     //	The drawing below this line will be drawn under whatever is on the canvas
     GraphicsContext.setGlobalComposition("destination-over");
 
     gameSky.update(0, 0, 0);
-
     gameSky.draw();
 
     //	The drawing below this line will be drawn on top of whatever is on the canvas
     GraphicsContext.setGlobalComposition("source-over");
 
     //*************************************************************************DEBUG*******************************************
-    // GraphicsContext.drawPolygon(spriteBounding, "blue");
+    // GraphicsContext.drawPolygon(gameSprite.bounding, "blue");
 
     //*************************************
     //	Pause or show main game process

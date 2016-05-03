@@ -111,7 +111,7 @@ var UIClass = {
         GraphicsContext.save();
         GraphicsContext.canvasCtx.fillStyle = "rgba(0, 0, 0, 0.7)";
         GraphicsContext.canvasCtx.fillRect(0, 0, GraphicsContext.width(), GraphicsContext.height());
-        GraphicsContext.canvasCtx.font = "bolder 48px Roboto";
+        GraphicsContext.canvasCtx.font = "bolder 84px Roboto";
         GraphicsContext.canvasCtx.textBaseline = "middle";
         GraphicsContext.canvasCtx.textAlign = "center";
         GraphicsContext.canvasCtx.fillStyle = "white";
