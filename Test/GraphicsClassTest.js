@@ -43,19 +43,18 @@ var x = 0,
 InputClass.listen();
 setInterval(function() {
 	dy = 0;
-	if (InputClass.lastMouseY - sprite.getCenterY() != 0){
-	dy = (InputClass.lastMouseY - sprite.getCenterY()) / Math.abs(InputClass.lastMouseY - sprite.getCenterY());
+	if (InputClass.mouseY - sprite.getCenterY() != 0){
+	dy = (InputClass.mouseY - sprite.getCenterY()) / Math.abs(InputClass.mouseY - sprite.getCenterY());
 	}
 	y += dy * 0.5;
     GraphicsContext.clearCanvas();
-    var angle = Math.atan((InputClass.lastMouseY - sprite.getCenterY()) / (InputClass.mouseX - sprite.getCenterX()));
+    var angle = Math.atan((InputClass.mouseY - sprite.getCenterY()) / (InputClass.mouseX - sprite.getCenterX()));
     sprite.update(0, y, angle);
     sprite.draw();
     GraphicsContext.setGlobalComposition("destination-over");
     background.update(0, 0, 0);
     background.draw();
     GraphicsContext.setGlobalComposition("source-over");
-    console.log(GraphicsContext.canvasCtx.getImageData(sprite.x, sprite.y, sprite.width, sprite.height));
 }, 1);
 
 

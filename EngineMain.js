@@ -1,54 +1,7 @@
 /*************************************************************************************
-								ESL Suite Game Engine
+								ESL Suite Rocket Adventure Game
 
 								Created By Andy Zhou
-
-	Engine Structure:
-
-									Engine Main
-										 |
-										 |
-										 |
-					----------------------------------------------------
-					|			|				 |					   |
-					|			|				 |					   |
-					|			|				 |					   |
-					|			|				 |					   |
-				UIClass-----Utillity--------GraphicsClass---------InputClass
-		   	 (DOM + jQuery)					(HTML5 Canvas)			
-		   		  /\
-				 /  \
-				/    \
-			   /      \
-			 GUI  GameRecord
-
-	Engine Introduction:
-	
-	Overview:
-	It's not a general purpose engine but actually a game prototype. This 
-	engine can only make this kind of game with limited functionalities. 
-	For the sake of easier maintainence I make a engine instead of dumping
-	codes around plainly in the file. The horizontal lines in the diagram 
-	mean there is data communication between and vertical lines denote its 
-	funtionalities and classes composition.
-
-	Components:
-	1. Engine Main
-		It's the body of the engine, responsible for initializing and shutting 
-		down all the subsystems and components, and of course the main process
-		of the game.
-	2. UIClass
-		Responsible for the GUI and the game record displayed on the game canvas.
-		It uses jQuery to manipulate the DOM on the game canvas. 
-	3. Utility
-		Responsible for game record calculation and collision detection of objects.
-		It interacts with both UIClass and GraphicsClass.
-	4. GraphicsClass
-		Responsible for drawing the scene, including background, barriers, sprite, 
-		.etc.
-	5. InputClass
-		Responsible for getting user's input(mouse movements) and sending the 
-		command	to the GraphicsClass to animate the scene.
 
 *************************************************************************************/
 
@@ -66,21 +19,48 @@ InputClass.listen();
 
 var isStop = true, //	Game loop start and pause flag
 
-    mouseX, mouseY, //	Mouse position
+    mouseX, mouseY; //	Mouse position
 
-    //******************************
-    //	Game background objects
-    //******************************
-    gameSky, //	Sky background
+//******************************
+//	Game background objects
+//******************************
+var gameSky = new ImageObject( //	Sky background
+        0,
+        0,
+        GraphicsContext.width(),
+        GraphicsContext.height()),
+
     cloudsCount = 3, //	Sky clouds count
-    gameSkyClouds = new Array(cloudsCount), //	Sky clouds objects 
 
-    //******************************
-    //	Game sprite
-    //******************************
-    spriteWidth,
-    spriteHeight,
-    gameSprite = new ImageObject(0, 0, spriteWidth, spriteHeight);
+    gameSkyClouds = new Array(cloudsCount); //	Sky clouds objects 
+
+gameSky.addImageFrame("http://orig11.deviantart.net/81b0/f/2013/353/5/b/on_a_clear_night_sky__background__by_oakfur422-d6yl3xc.png");
+
+//******************************
+//	Game sprite
+//******************************
+var spriteWidth = 130,
+    spriteHeight = 80,
+    spriteTopLeftPosX = GraphicsContext.width() * 0.05,	//	Position at the x% of the canvas width
+    spriteTopLeftPosY = 0,
+    spriteCenterY,
+    spriteCenterX,
+    spriteAngle,	//	Angle between the direction the sprite is point at and the x axis
+    spriteAy = 0,	//	Vertical acceleration 
+    spriteAyCoef = 1.35,	//	Acceleration coefficient, used to scale up or down the acceleration
+
+    gameSprite = new ImageObject(
+    	spriteTopLeftPosY, 
+    	spriteTopLeftPosY, 
+    	spriteWidth, 
+    	spriteHeight),
+
+    spriteFrames = [ //	Use to compose sprite animation
+    "http://1.bp.blogspot.com/-siKMnTg6i1k/TxoF5feuXBI/AAAAAAAAAE0/QnsGu-GbfSs/s1600/rocket-md.png"];
+
+for (var i = 0; i < spriteFrames.length; i++) { //	Add frames to the sprite
+    gameSprite.addImageFrame(spriteFrames[i]);
+}
 
 var MainGameLoop = setInterval(function() {
     //********************************
@@ -92,18 +72,49 @@ var MainGameLoop = setInterval(function() {
     //	Clear all
     GraphicsContext.clearCanvas();
 
+    //***************************
+    //	Get mouse position
+    //***************************
+    mouseX = InputClass.mouseX;
+    mouseY = InputClass.mouseY;
+
     //*******************************
-    //	Show basic game animation
+    //	Show basic game scene
     //*******************************
 
+    spriteCenterY = gameSprite.getCenterY();
+    spriteCenterX = gameSprite.getCenterX();
+    if (mouseY != spriteCenterY){
+    	spriteAy = (mouseY - spriteCenterY) * spriteAyCoef / GraphicsContext.height();
+    }
+
+    spriteTopLeftPosY += spriteAy;
+
+    spriteAngle = Math.atan((mouseY - spriteCenterY) / (mouseX - spriteCenterX));
+
+    gameSprite.update(spriteTopLeftPosX, spriteTopLeftPosY, spriteAngle);
+
+    gameSprite.draw();
+
+    //	The drawing below this line will be drawn under whatever is on the canvas
+    GraphicsContext.setGlobalComposition("destination-over");
+
+    gameSky.update(0, 0, 0);
+
+    gameSky.draw();
+
+    //	The drawing below this line will be drawn on top of whatever is on the canvas
+    GraphicsContext.setGlobalComposition("source-over");
+
+    //*************************************
+    //	Pause or show main game process
+    //*************************************
     if (isStop) {
         //****************************
         //	Show pause scene
         //****************************
         UIClass.showPauseScene();
     } else {
-        mouseX = InputClass.mouseX;
-        mouseY = InputClass.mouseY;
         showText(mouseX + " " + mouseY);
     }
 });

@@ -64,7 +64,7 @@ var GraphicsContext = {
             }
             this.canvasCtx.lineTo(poly.points[i].x, poly.points[i].y);
             if (i === poly.points.length - 1) {
-                this.canvasCtx.lineTo(poly.points[poly.points.length - 1].x, 
+                this.canvasCtx.lineTo(poly.points[poly.points.length - 1].x,
                     poly.points[poly.points.length - 1].y);
             }
         }
@@ -172,11 +172,20 @@ var UIClass = {
     //  i.e. the line of word "Click to start" 
     //  and the gray background
     //*******************************************
-    showPauseScene: function(){
+    showPauseScene: function() {
         GraphicsContext.save();
-        GraphicsContext.canvasCtx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        GraphicsContext.canvasCtx.fillStyle = "rgba(0, 0, 0, 0.7)";
         GraphicsContext.canvasCtx.fillRect(0, 0, GraphicsContext.width(), GraphicsContext.height());
+        GraphicsContext.canvasCtx.font = "bolder 48px Roboto";
+        GraphicsContext.canvasCtx.textBaseline = "middle";
+        GraphicsContext.canvasCtx.textAlign = "center";
+        GraphicsContext.canvasCtx.fillStyle = "white";
+        GraphicsContext.canvasCtx.fillText(
+            "Click to Start",
+            GraphicsContext.width() * 0.5,
+            GraphicsContext.height() * 0.5);
         GraphicsContext.restore();
     },
 
 };
+
