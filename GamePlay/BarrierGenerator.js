@@ -1,10 +1,10 @@
 /***********************************************************************************************
-										Barrier Generator
+                                        Barrier Generator
 
-										Created By Andy
+                                        Created By Andy
 
-	Overview:
-	Barrier generator based on game record and game time
+    Overview:
+    Barrier generator based on game record and game time
 
 ***********************************************************************************************/
 
@@ -14,7 +14,7 @@ var BarrierGenerator = {
     _lastBarrier: null,
     _lastBarrierIndex: null,
     _lastBarrierIssueTime: 0,
-    _gapFromLastBarrier: 0, //	Counting from the top left pos
+    _gapFromLastBarrier: 0, //  Counting from the top left pos
     _barriersAx: 0,
     _getRandY: function() {
         var randY = (Math.random() * 528314 * Math.random()) % GraphicsContext.height();
@@ -39,7 +39,7 @@ var BarrierGenerator = {
     },
     setLevel: function(record) {
         //********************************
-        //	Reach a new level every 10000
+        //  Reach a new level every 10000
         //********************************
         var level = parseInt(record / 10000);
         switch (level) {
@@ -84,14 +84,14 @@ var BarrierGenerator = {
     getThisBarrier: function(time, ax) {
         this._barriersAx = ax;
 
-        if (this._lastBarrier !== null) { //	Check if it's the first barrier issued
+        if (this._lastBarrier !== null) { //    Check if it's the first barrier issued
             var deltaTime = time - this._lastBarrierIssueTime;
             if (deltaTime * Math.abs(ax) <= this._gapFromLastBarrier) {
                 return null;
             }
         }
         //********************************************
-        //	Get a barrier different from last one
+        //  Get a barrier different from last one
         //********************************************
         var thisBarrierIndex = Utility.getRandIndex(barriersList.length);
         if (thisBarrierIndex === this._lastBarrierIndex ||
@@ -109,6 +109,15 @@ var BarrierGenerator = {
         this._lastBarrierIssueTime = time;
 
         return thisBarrier;
+    },
+    reset: function() {
+        this._record = 0;
+        this._level = 0;
+        this._lastBarrier = null;
+        this._lastBarrierIndex = null;
+        this._lastBarrierIssueTime = 0;
+        this._gapFromLastBarrier = 0; //  Counting from the top left pos
+        this._barriersAx = 0;
     }
 };
 

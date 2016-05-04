@@ -69,12 +69,7 @@ var InputClass = {
         });
     },
 
-    reset: function() {
-        this._mouseMove = false;
-        this.mouseX = 0;
-        this.mouseY = 0;
-        this._lastMouseX = 0;
-        this._lastMouseY = 0;
+    resetClicks: function() {
         this.clickCount = 0;
         this.lastClick = new Vector();
     }

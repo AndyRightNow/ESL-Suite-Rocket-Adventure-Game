@@ -107,15 +107,28 @@ var UIClass = {
     //  i.e. the line of word "Click to start" 
     //  and the dark background
     //*******************************************
-    showPauseScene: function() {
-        GraphicsContext.save();
+    _showDarkBackground: function(){
         GraphicsContext.canvasCtx.fillStyle = "rgba(0, 0, 0, 0.7)";
         GraphicsContext.canvasCtx.fillRect(0, 0, GraphicsContext.width(), GraphicsContext.height());
-        GraphicsContext.canvasCtx.font = "bolder 84px Roboto";
-        GraphicsContext.canvasCtx.textBaseline = "middle";
-        GraphicsContext.canvasCtx.textAlign = "center";
-        GraphicsContext.canvasCtx.fillStyle = "white";
+    },
+    _showText: function(font, baseline, align, style, text, width, height){
+        GraphicsContext.canvasCtx.font = font;
+        GraphicsContext.canvasCtx.textBaseline = baseline;
+        GraphicsContext.canvasCtx.textAlign = align;
+        GraphicsContext.canvasCtx.fillStyle = style;
         GraphicsContext.canvasCtx.fillText(
+            text,
+            width,
+            height);
+    },
+    showPauseScene: function() {
+        GraphicsContext.save();
+        this._showDarkBackground();
+        this._showText(
+            "bolder 84px Roboto",
+            "middle",
+            "center",
+            "white",
             "Click to Start",
             GraphicsContext.width() * 0.5,
             GraphicsContext.height() * 0.5);
@@ -123,29 +136,28 @@ var UIClass = {
     },
     showLoadingScene: function(){
         GraphicsContext.save();
-        GraphicsContext.canvasCtx.fillStyle = "rgba(0, 0, 0, 0.7)";
-        GraphicsContext.canvasCtx.fillRect(0, 0, GraphicsContext.width(), GraphicsContext.height());
-        GraphicsContext.canvasCtx.font = "bolder 84px Roboto";
-        GraphicsContext.canvasCtx.textBaseline = "middle";
-        GraphicsContext.canvasCtx.textAlign = "center";
-        GraphicsContext.canvasCtx.fillStyle = "white";
-        GraphicsContext.canvasCtx.fillText(
+        this._showDarkBackground();
+        this._showText(
+            "bolder 84px Roboto",
+            "middle",
+            "center",
+            "white",
             "Loading...",
             GraphicsContext.width() * 0.5,
             GraphicsContext.height() * 0.5);
         GraphicsContext.restore();
     },
-    showGameRecord(record, high){
+    showGameRecord: function(record, high){
         GraphicsContext.save();
 
         //*********************************
         //  Show current real-time record
         //*********************************
-        GraphicsContext.canvasCtx.font = "bolder 36px Roboto";
-        GraphicsContext.canvasCtx.textBaseline = "top";
-        GraphicsContext.canvasCtx.textAlign = "end";
-        GraphicsContext.canvasCtx.fillStyle = "white";
-        GraphicsContext.canvasCtx.fillText(
+        this._showText(
+            "bolder 36px Roboto",
+            "top",
+            "end",
+            "white",
             record,
             GraphicsContext.width() * 0.95,
             GraphicsContext.height() * 0.05);
@@ -153,13 +165,35 @@ var UIClass = {
         //*********************************
         //  Show the highest record
         //*********************************
-        GraphicsContext.canvasCtx.textBaseline = "top";
-        GraphicsContext.canvasCtx.textAlign = "start";
-        GraphicsContext.canvasCtx.fillStyle = "white";
-        GraphicsContext.canvasCtx.fillText(
+        this._showText(
+            "bolder 36px Roboto",
+            "top",
+            "start",
+            "white",
             "Highest: " + high,
             GraphicsContext.width() * 0.05,
             GraphicsContext.height() * 0.05);
+        GraphicsContext.restore();
+    },
+    showRestartScene: function(high){
+        GraphicsContext.save();
+        this._showDarkBackground();
+        this._showText(
+            "bolder 48px Roboto",
+            "bottom",
+            "center",
+            "white",
+            "Highest: " + high,
+            GraphicsContext.width() * 0.5,
+            GraphicsContext.height() * 0.4);
+        this._showText(
+            "bolder 84px Roboto",
+            "top",
+            "center",
+            "white",
+            "Click to Restart",
+            GraphicsContext.width() * 0.5,
+            GraphicsContext.height() * 0.4);
         GraphicsContext.restore();
     }
 };

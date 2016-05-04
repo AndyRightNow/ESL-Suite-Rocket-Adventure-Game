@@ -7,15 +7,11 @@
 
 "use strict";
 
-//***********************************************************************
-//								Main game loop
-//	Use window.setInterval() because don't want to hang the 
-//	main web page thread.
-//***********************************************************************
+//	Game run count
+var gameRunCount = 0;
 
 //	Start to listen to the user input
 InputClass.listen();
-
 
 var isStop = true, //	Game loop start and pause flag
 
@@ -117,6 +113,39 @@ var gameRecord = 0,
 //	Barriers on the screen
 var barriersVisible = [];
 
+//**************************
+//	EngineMain Object
+//**************************
+var EngineMain = {
+    restart: function() {
+        isStop = true;
+        InputClass.resetClicks();
+        g_GameObjectAx = -1;
+        g_GameObjectAxDelta = 0.00001;
+
+        if (gameRecord > highestGameRecord) {
+            highestGameRecord = gameRecord;	//	Store the highest record
+        }
+        
+        gameRecord = 0;
+        gameRecordCoef = 0.5;
+        gameTime = 0;
+
+        for (var i = 0; i < barriersVisible.length; i++) {
+            barriersVisible[i].resetFlagAndPos(GraphicsContext.width(), 0);
+        }
+        barriersVisible = [];
+
+        Timer.stop();
+
+        BarrierGenerator.reset();
+    }
+};
+
+//***********************************************************************
+//								Main game loop
+//	Use window.setInterval() in order not to hang the main UI thread 
+//***********************************************************************
 var MainGameLoop = setInterval(function() {
     //********************************
     //	Check if the user click start
@@ -153,7 +182,7 @@ var MainGameLoop = setInterval(function() {
 
     gameSprite.update(spriteAngle, 0, spriteAy);
     gameSprite.draw();
-    
+
     //****************************************************************DEBUG****************************************
     // GraphicsContext.drawPolygon(gameSprite.bounding, "blue");
 
@@ -181,17 +210,12 @@ var MainGameLoop = setInterval(function() {
     //	Pause or show main game process
     //*************************************
     if (isStop) {
-        //	Show pause scene
-        UIClass.showPauseScene();
-
-        //****************************************************
-        //	Store the highest record and stop the Timer
-        //****************************************************
-        if (gameRecord > highestGameRecord) {
-            highestGameRecord = gameRecord;
+        if (gameRunCount === 0) {
+            UIClass.showPauseScene(); //	Show pause scene
         }
-        Timer.stop();
-
+        else{
+        	UIClass.showRestartScene(highestGameRecord);
+        }
     } else {
         if (!BarrierLoading.isDone()) {
             //	Show loading scene
@@ -201,7 +225,8 @@ var MainGameLoop = setInterval(function() {
             //	Show main game process
             //*************************************
             if (!Timer.isRunning()) { //	If the Timer is not started, start the counting
-                Timer.start();
+                Timer.start(); //	Timer only start once
+                gameRunCount++; //	Game run count add one
             }
 
             //***********************************************************
@@ -232,9 +257,11 @@ var MainGameLoop = setInterval(function() {
                 barriersVisible[i].update(0, g_GameObjectAx, 0);
                 barriersVisible[i].draw();
                 if (barriersVisible[i].x <= gameSprite.x + gameSprite.width) {
+                    //**************************************
+                    //	If collided then restart the game
+                    //**************************************
                     if (colliDetect.detect(gameSprite.bounding, barriersVisible[i].bounding)) {
-                        isStop = true;
-                        InputClass.reset();
+                        EngineMain.restart();
                     }
                 }
                 //****************************************************************DEBUG****************************************
