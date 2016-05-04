@@ -155,7 +155,7 @@ var MainGameLoop = setInterval(function() {
     gameSprite.draw();
     
     //****************************************************************DEBUG****************************************
-    GraphicsContext.drawPolygon(gameSprite.bounding, "blue");
+    // GraphicsContext.drawPolygon(gameSprite.bounding, "blue");
 
     //	The drawing below this line will be drawn under whatever is on the canvas
     GraphicsContext.setGlobalComposition("destination-over");
@@ -176,9 +176,6 @@ var MainGameLoop = setInterval(function() {
 
     //	The drawing below this line will be drawn on top of whatever is on the canvas
     GraphicsContext.setGlobalComposition("source-over");
-
-    //*************************************************************************DEBUG*******************************************
-    // GraphicsContext.drawPolygon(gameSprite.bounding, "blue");
 
     //*************************************
     //	Pause or show main game process
@@ -241,7 +238,7 @@ var MainGameLoop = setInterval(function() {
                     }
                 }
                 //****************************************************************DEBUG****************************************
-                GraphicsContext.drawPolygon(barriersVisible[i].bounding, "blue");
+                // GraphicsContext.drawPolygon(barriersVisible[i].bounding, "blue");
             }
         }
     }

@@ -26,7 +26,10 @@ var colliDetectHelper = {
     flattenPolygonOnAxis: function(poly, axis) {
         var maxWidth = GraphicsContext.width(),
             maxHeight = GraphicsContext.height();
-        var minMaxPoints = [new Vector(maxWidth, maxHeight), new Vector()];
+        var minMaxPoints = [
+        new Vector(maxWidth, maxHeight), 
+        new Vector(-GraphicsContext.width(),
+            -GraphicsContext.height())];
         var proj;
         for (var i = 0; i < poly.points.length; i++) {
             proj = poly.points[i].project(axis);
