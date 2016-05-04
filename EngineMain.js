@@ -25,24 +25,24 @@ var isStop = true, //	Game loop start and pause flag
 //	Game background objects
 //******************************
 var gameSkyWidth = 1257,
-	gameSkyHeight = 400,
-	backSkyPosX = gameSkyWidth - 27,
+    gameSkyHeight = 400,
+    backSkyPosX = gameSkyWidth - 27,
 
-	gameSkys = [
-	new ImageObject( 
-        0,
-        0,
-        gameSkyWidth,
-        gameSkyHeight),
-	
+    gameSkys = [
 	new ImageObject(
-		backSkyPosX,	//	Fix the border gap
-		0,
-		gameSkyWidth,
-		gameSkyHeight)],
+            0,
+            0,
+            gameSkyWidth,
+            gameSkyHeight),
 
-	frontSky = gameSkys[0],	//	Front Sky background for alternating
-	backSky = gameSkys[1];	//	Back Sky background for alternating
+	new ImageObject(
+            backSkyPosX, //	Fix the border gap
+            0,
+            gameSkyWidth,
+            gameSkyHeight)],
+
+    frontSky = gameSkys[0], //	Front Sky background for alternating
+    backSky = gameSkys[1]; //	Back Sky background for alternating
 
 
 frontSky.addImageFrame("img/Background/Sky.jpg");
@@ -53,7 +53,7 @@ backSky.addImageFrame("img/Background/Sky.jpg");
 //******************************
 var spriteWidth = 220,
     spriteHeight = 80,
-    spriteTopLeftPos = new Vector(GraphicsContext.width() * 0.05, 0),	 //	Position at the x% of the canvas width
+    spriteTopLeftPos = new Vector(GraphicsContext.width() * 0.05, 0), //	Position at the x% of the canvas width
     spriteCenterY,
     spriteCenterX,
     spriteAngle = 0, //	Angle between the direction the sprite is point at and the x axis
@@ -61,21 +61,21 @@ var spriteWidth = 220,
     spriteAyCoef = 2.3, //	Acceleration coefficient, used to scale up or down the acceleration
 
     spriteBoundingPoints = [
-					new Vector(71, 11),
-					new Vector(99, 8),
-					new Vector(113, 21),
-					new Vector(152, 21),
-					new Vector(184, 22),
-					new Vector(201, 27),
-					new Vector(216, 39),
-					new Vector(203, 51),
-					new Vector(187, 58),
-					new Vector(148, 59),
-					new Vector(114, 59),
-					new Vector(100, 71),
-					new Vector(71, 69),
-					new Vector(87, 57),
-					new Vector(85, 24)
+					new Vector(91, 11),
+					new Vector(119, 8),
+					new Vector(133, 21),
+					new Vector(172, 21),
+					new Vector(204, 22),
+					new Vector(221, 27),
+					new Vector(236, 39),
+					new Vector(223, 51),
+					new Vector(207, 58),
+					new Vector(168, 59),
+					new Vector(134, 59),
+					new Vector(120, 71),
+					new Vector(91, 69),
+					new Vector(107, 57),
+					new Vector(105, 24)
     ],
     spriteBoundingBox = new Box(spriteTopLeftPos, spriteWidth, spriteHeight),
     spriteBounding = new Polygon(spriteBoundingPoints, spriteTopLeftPos, spriteBoundingBox),
@@ -105,6 +105,13 @@ for (var i = 0; i < spriteFrames.length; i++) { //	Add frames to the sprite
 //*********************************************
 var g_GameObjectAx = -1;
 
+//********************
+//	Game Record
+//********************
+var gameRecord = 0,
+	gameRecordCoef = 0.38,
+	highestGameRecord = 0;
+
 var MainGameLoop = setInterval(function() {
     //********************************
     //	Check if the user click start
@@ -126,12 +133,12 @@ var MainGameLoop = setInterval(function() {
     //*******************************
     spriteCenterY = gameSprite.getCenterY();
     spriteCenterX = gameSprite.getCenterX();
-    
+
     if (mouseY != spriteCenterY) {
         spriteAy = (mouseY - spriteCenterY) * spriteAyCoef / GraphicsContext.height();
     }
 
-    spriteAngle = (Math.atan((mouseY - spriteCenterY) / (mouseX - spriteCenterX))  * (180 / Math.PI))  * 0.025;
+    spriteAngle = (Math.atan((mouseY - spriteCenterY) / (mouseX - spriteCenterX)) * (180 / Math.PI)) * 0.025;
 
     //*************************************************************************DEBUG*******************************************
     // showText(spriteAngle);
@@ -149,11 +156,11 @@ var MainGameLoop = setInterval(function() {
     frontSky.draw();
     backSky.update(0, g_GameObjectAx, 0);
     backSky.draw();
-    if (backSky.x <= 0){	//	Swap front and back sky images
-    	var tmp = frontSky;
-    	frontSky = backSky;
-    	backSky = tmp;
-    	backSky.x = backSkyPosX;
+    if (backSky.x <= 0) { //	Swap front and back sky images
+        var tmp = frontSky;
+        frontSky = backSky;
+        backSky = tmp;
+        backSky.x = backSkyPosX;
     }
 
     //	The drawing below this line will be drawn on top of whatever is on the canvas
@@ -166,14 +173,36 @@ var MainGameLoop = setInterval(function() {
     //	Pause or show main game process
     //*************************************
     if (isStop) {
-        //****************************
         //	Show pause scene
-        //****************************
         UIClass.showPauseScene();
-    } else { 
-    	if (!BarrierLoading.isDone()){
-    		UIClass.showLoadingScene();
+
+        //****************************************************
+        //	Store the highest record and stop the Timer
+        //****************************************************
+    	if (gameRecord > highestGameRecord){
+    		highestGameRecord = gameRecord;
     	}
+        Timer.stop();
+
+    } else {
+        if (!BarrierLoading.isDone()) {
+            //	Show loading scene
+            UIClass.showLoadingScene();
+        } else {
+            //*************************************
+            //	Show main game process
+            //*************************************
+            if (!Timer.isRunning()){	//	If the Timer is not started, start the counting
+            	Timer.start();
+            }
+
+            //***********************************************************
+            //	Show game record at the top right corner of the canvas
+            //	and the highest record at the top left corner
+            //***********************************************************
+            gameRecord = parseInt(Timer.totalTime() * gameRecordCoef); 
+            UIClass.showGameRecord(gameRecord, highestGameRecord);
+        }
     }
 });
 

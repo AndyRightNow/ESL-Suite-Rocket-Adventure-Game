@@ -13,7 +13,7 @@
 var barriersStartingTopLeftPos = new Vector(GraphicsContext.width() + 100, 0);
 
 //	Finish loading flag
-var barriersCount = 2;
+var barriersCount = 3;
 var BarrierLoading = {
     isDone: function() {
         if (barriersList.length === barriersCount) {
@@ -59,7 +59,7 @@ var barrierBoundingBox = new Box(
         barriersStartingTopLeftPos,
         barrierBoundingBox),
 
-    barrierFrames = ["img/Barriers/Barrier1/1.png"];
+    barrierFrames = ["img/Barriers/1.png"];
 
 var barrier = new ImageObject(
     barriersStartingTopLeftPos.x,
@@ -113,7 +113,7 @@ barrierBounding = new Polygon(
     barriersStartingTopLeftPos,
     barrierBoundingBox);
 
-barrierFrames = ["img/Barriers/Barrier2/1.png"];
+barrierFrames = ["img/Barriers/1.png"];
 
 barrier = new ImageObject(
     barriersStartingTopLeftPos.x,
@@ -128,3 +128,52 @@ for (var i = 0; i < barrierFrames.length; i++) {
 
 barriersList.push(barrier);
 
+//********************************
+//	Barrier: Rock 1
+//********************************
+barrierWidth = 135;
+barrierHeight = 87;
+barrierBoundingPoints = [
+	new Vector(33, 24),
+	new Vector(59, 9),
+	new Vector(74, 2),
+	new Vector(134, 47),
+	new Vector(128, 65),
+	new Vector(102, 82),
+	new Vector(70, 82),
+	new Vector(56, 87),
+	new Vector(32, 72),
+	new Vector(9, 69),
+	new Vector(1, 60),
+	new Vector(17, 44),
+	new Vector(20, 35),
+	new Vector(27, 35)];
+
+for (var i = 0; i < barrierBoundingPoints.length; i++) {
+    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+}
+
+barrierBoundingBox = new Box(
+    barriersStartingTopLeftPos,
+    barrierWidth,
+    barrierHeight);
+
+barrierBounding = new Polygon(
+    barrierBoundingPoints,
+    barriersStartingTopLeftPos,
+    barrierBoundingBox);
+
+barrierFrames = ["img/Barriers/3.png"];
+
+barrier = new ImageObject(
+    barriersStartingTopLeftPos.x,
+    barriersStartingTopLeftPos.y,
+    barrierWidth,
+    barrierHeight,
+    barrierBounding);
+
+for (var i = 0; i < barrierFrames.length; i++) {
+    barrier.addImageFrame(barrierFrames[i]);
+}
+
+barriersList.push(barrier);

@@ -105,7 +105,7 @@ var UIClass = {
     //*******************************************
     //  Show the pause scene, 
     //  i.e. the line of word "Click to start" 
-    //  and the gray background
+    //  and the dark background
     //*******************************************
     showPauseScene: function() {
         GraphicsContext.save();
@@ -133,6 +133,33 @@ var UIClass = {
             "Loading...",
             GraphicsContext.width() * 0.5,
             GraphicsContext.height() * 0.5);
+        GraphicsContext.restore();
+    },
+    showGameRecord(record, high){
+        GraphicsContext.save();
+
+        //*********************************
+        //  Show current real-time record
+        //*********************************
+        GraphicsContext.canvasCtx.font = "bolder 36px Roboto";
+        GraphicsContext.canvasCtx.textBaseline = "top";
+        GraphicsContext.canvasCtx.textAlign = "end";
+        GraphicsContext.canvasCtx.fillStyle = "white";
+        GraphicsContext.canvasCtx.fillText(
+            record,
+            GraphicsContext.width() * 0.95,
+            GraphicsContext.height() * 0.05);
+
+        //*********************************
+        //  Show the highest record
+        //*********************************
+        GraphicsContext.canvasCtx.textBaseline = "top";
+        GraphicsContext.canvasCtx.textAlign = "right";
+        GraphicsContext.canvasCtx.fillStyle = "white";
+        GraphicsContext.canvasCtx.fillText(
+            "Highest: " + high,
+            GraphicsContext.width() * 0.25,
+            GraphicsContext.height() * 0.05);
         GraphicsContext.restore();
     }
 };

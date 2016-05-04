@@ -14,8 +14,8 @@ var TEST_lastClickCount = 0;
 //********************************
 //	Images
 //********************************
-var TEST_tmp = new ImageObject(0, 0, 100, 122);
-TEST_tmp.addImageFrame("img/Barriers/Barrier2/1.png");
+var TEST_tmp = new ImageObject(0, 0, 135, 87);
+TEST_tmp.addImageFrame("img/Barriers/3.png");
 
 //****************************************
 //	Test Mouse Coordinates

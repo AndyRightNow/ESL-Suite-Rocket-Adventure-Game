@@ -10,14 +10,8 @@
 //	Test Timer.start(), Timer.stop() and Timer.totalTime()
 //***************************************************************
 Timer.start();
-var tmp = 0;
-setInterval(function(){
-	tmp++;
-	if (tmp % 500 === 0){
-		showText(Timer.totalTime());
-	}
-	if (tmp % 1500 == 0){
-		Timer.stop();
-		Timer.start();
-	}
+// var tmp = 0;
+setInterval(function() {
+    showText(Timer.totalTime());
 });
+
