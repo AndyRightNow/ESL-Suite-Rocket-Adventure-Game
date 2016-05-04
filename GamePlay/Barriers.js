@@ -46,7 +46,7 @@ var barrierWidth = 150,
 		new Vector(18, 42)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 var barrierBoundingBox = new Box(
@@ -100,7 +100,7 @@ barrierBoundingPoints = [
 	new Vector(2, 39)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -150,7 +150,7 @@ barrierBoundingPoints = [
 	new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -199,7 +199,7 @@ barrierBoundingPoints = [
     new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -248,7 +248,7 @@ barrierBoundingPoints = [
     new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -297,7 +297,7 @@ barrierBoundingPoints = [
     new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -346,7 +346,7 @@ barrierBoundingPoints = [
     new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -395,7 +395,7 @@ barrierBoundingPoints = [
     new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -444,7 +444,7 @@ barrierBoundingPoints = [
     new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(
@@ -493,7 +493,7 @@ barrierBoundingPoints = [
     new Vector(27, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
-    barrierBoundingPoints[i].translate(GraphicsContext.width() + 100, 0);
+    barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
 }
 
 barrierBoundingBox = new Box(

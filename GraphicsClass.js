@@ -154,11 +154,11 @@ var UIClass = {
         //  Show the highest record
         //*********************************
         GraphicsContext.canvasCtx.textBaseline = "top";
-        GraphicsContext.canvasCtx.textAlign = "right";
+        GraphicsContext.canvasCtx.textAlign = "start";
         GraphicsContext.canvasCtx.fillStyle = "white";
         GraphicsContext.canvasCtx.fillText(
             "Highest: " + high,
-            GraphicsContext.width() * 0.25,
+            GraphicsContext.width() * 0.05,
             GraphicsContext.height() * 0.05);
         GraphicsContext.restore();
     }

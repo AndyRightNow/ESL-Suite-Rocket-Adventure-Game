@@ -103,15 +103,19 @@ for (var i = 0; i < spriteFrames.length; i++) { //	Add frames to the sprite
 //*********************************************
 //	Global Game Objects parameters
 //*********************************************
-var g_GameObjectAx = -1;
+var g_GameObjectAx = -1,
+    g_GameObjectAxDelta = 0.00001;
 
 //**************************
 //	Game Record and time
 //**************************
 var gameRecord = 0,
-	gameRecordCoef = 0.5,
-	highestGameRecord = 0,
-	gameTime = 0;
+    gameRecordCoef = 0.5,
+    highestGameRecord = 0,
+    gameTime = 0;
+
+//	Barriers on the screen
+var barriersVisible = [];
 
 var MainGameLoop = setInterval(function() {
     //********************************
@@ -139,6 +143,9 @@ var MainGameLoop = setInterval(function() {
         spriteAy = (mouseY - spriteCenterY) * spriteAyCoef / GraphicsContext.height();
     }
 
+    //	Increase the control sensitivity with time
+    spriteAy += g_GameObjectAxDelta;
+
     spriteAngle = (Math.atan((mouseY - spriteCenterY) / (mouseX - spriteCenterX)) * (180 / Math.PI)) * 0.025;
 
     //*************************************************************************DEBUG*******************************************
@@ -146,6 +153,9 @@ var MainGameLoop = setInterval(function() {
 
     gameSprite.update(spriteAngle, 0, spriteAy);
     gameSprite.draw();
+    
+    //****************************************************************DEBUG****************************************
+    GraphicsContext.drawPolygon(gameSprite.bounding, "blue");
 
     //	The drawing below this line will be drawn under whatever is on the canvas
     GraphicsContext.setGlobalComposition("destination-over");
@@ -180,9 +190,9 @@ var MainGameLoop = setInterval(function() {
         //****************************************************
         //	Store the highest record and stop the Timer
         //****************************************************
-    	if (gameRecord > highestGameRecord){
-    		highestGameRecord = gameRecord;
-    	}
+        if (gameRecord > highestGameRecord) {
+            highestGameRecord = gameRecord;
+        }
         Timer.stop();
 
     } else {
@@ -193,8 +203,8 @@ var MainGameLoop = setInterval(function() {
             //*************************************
             //	Show main game process
             //*************************************
-            if (!Timer.isRunning()){	//	If the Timer is not started, start the counting
-            	Timer.start();
+            if (!Timer.isRunning()) { //	If the Timer is not started, start the counting
+                Timer.start();
             }
 
             //***********************************************************
@@ -202,12 +212,37 @@ var MainGameLoop = setInterval(function() {
             //	and the highest record at the top left corner
             //***********************************************************
             gameTime = Timer.totalTime();
-            gameRecord = parseInt(gameTime * gameRecordCoef); 
+            gameRecord = parseInt(gameTime * gameRecordCoef);
             UIClass.showGameRecord(gameRecord, highestGameRecord);
 
-            //*************************************************************************DEBUG*******************************************
-    		showText(gameTime);
+            //	Increase the game objects speed
+            g_GameObjectAx -= g_GameObjectAxDelta;
 
+            //******************************************
+            //	Show barriers based on record
+            //******************************************
+            BarrierGenerator.setLevel(gameRecord);
+            var thisBarrier = BarrierGenerator.getThisBarrier(gameTime, g_GameObjectAx);
+            if (thisBarrier !== null) {
+                barriersVisible.push(thisBarrier); //	If next barrier is available, push to the visible barriers array
+            }
+
+            for (var i = 0; i < barriersVisible.length; i++) {
+                if (barriersVisible[i].x + barriersVisible[i].width < 0) {
+                    barriersVisible[i].resetFlagAndPos(GraphicsContext.width(), 0);
+                    barriersVisible.splice(i, 1);
+                }
+                barriersVisible[i].update(0, g_GameObjectAx, 0);
+                barriersVisible[i].draw();
+                if (barriersVisible[i].x <= gameSprite.x + gameSprite.width) {
+                    if (colliDetect.detect(gameSprite.bounding, barriersVisible[i].bounding)) {
+                        isStop = true;
+                        InputClass.reset();
+                    }
+                }
+                //****************************************************************DEBUG****************************************
+                GraphicsContext.drawPolygon(barriersVisible[i].bounding, "blue");
+            }
         }
     }
 }, 1);

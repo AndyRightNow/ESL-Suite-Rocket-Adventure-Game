@@ -91,3 +91,31 @@ ImageObject.prototype.getCenterX = function() {
 ImageObject.prototype.getCenterY = function() {
     return this.y + this.height / 2;
 };
+
+//**********************************************************
+//  Reset the flag and position of the Image Object
+//**********************************************************
+ImageObject.prototype.resetFlagAndPos = function(x, y){
+    this.used = false;
+    this.setX(x);
+    this.setY(y);
+};
+
+//**********************************************************
+//  Set the coordinates of Image Object
+//**********************************************************
+ImageObject.prototype.setX = function(x){
+    this.x = x;
+    if (this.bounding !== null){
+        this.bounding.translate(-this.bounding.box.points[0].x, 0);
+        this.bounding.translate(x, 0);
+    }
+};
+ImageObject.prototype.setY = function(y){
+    this.y = y;
+    if (this.bounding !== null){
+        this.bounding.translate(0, -this.bounding.box.points[0].y);
+        this.bounding.translate(0, y);
+    }
+
+};
