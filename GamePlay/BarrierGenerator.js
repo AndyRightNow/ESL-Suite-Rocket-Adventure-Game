@@ -15,12 +15,11 @@ var BarrierGenerator = {
     _lastBarrierIndex: null,
     _lastBarrierIssueTime: 0,
     _gapFromLastBarrier: 0, //  Counting from the top left pos
-    _barriersAx: 0,
     _getRandY: function() {
         var randY = (Math.random() * 528314 * Math.random()) % GraphicsContext.height();
         if (this._lastBarrier !== null) {
             var lower = this._lastBarrier.y - this._lastBarrier.height;
-            var upper = this._lastBarrier.y + this._lastBarrier.heigth;
+            var upper = this._lastBarrier.y + this._lastBarrier.heigtt;
             while (randY >= lower && randY <= upper) {
                 randY = (Math.random() * 528314 * Math.random()) % GraphicsContext.height();
             }
@@ -82,7 +81,6 @@ var BarrierGenerator = {
         }
     },
     getThisBarrier: function(time, ax) {
-        this._barriersAx = ax;
 
         if (this._lastBarrier !== null) { //    Check if it's the first barrier issued
             var deltaTime = time - this._lastBarrierIssueTime;
@@ -104,6 +102,12 @@ var BarrierGenerator = {
         thisBarrier.setY(this._getRandY());
         this._gapFromLastBarrier = this._getRandGapFromLast();
 
+        thisBarrier.ax = ax * (1 + Math.random());
+        thisBarrier.ay = ax * (Math.random() * 0.5) * Utility.getPosiOrNega();
+
+        thisBarrier.r = Math.random() * 10;
+        thisBarrier.dr = Math.random() * Math.random() * 0.01;
+
         this._lastBarrier = thisBarrier;
         this._lastBarrierIndex = thisBarrierIndex;
         this._lastBarrierIssueTime = time;
@@ -117,7 +121,6 @@ var BarrierGenerator = {
         this._lastBarrierIndex = null;
         this._lastBarrierIssueTime = 0;
         this._gapFromLastBarrier = 0; //  Counting from the top left pos
-        this._barriersAx = 0;
     }
 };
 

@@ -229,13 +229,11 @@ var MainGameLoop = setInterval(function() {
                 gameRunCount++; //	Game run count add one
             }
 
-            //***********************************************************
-            //	Show game record at the top right corner of the canvas
-            //	and the highest record at the top left corner
-            //***********************************************************
+            //********************************
+            //	Compute time and game record
+            //********************************
             gameTime = Timer.totalTime();
             gameRecord = parseInt(gameTime * gameRecordCoef);
-            UIClass.showGameRecord(gameRecord, highestGameRecord);
 
             //	Increase the game objects speed
             g_GameObjectAx -= g_GameObjectAxDelta;
@@ -254,9 +252,12 @@ var MainGameLoop = setInterval(function() {
                     barriersVisible[i].resetFlagAndPos(GraphicsContext.width(), 0);
                     barriersVisible.splice(i, 1);
                 }
-                barriersVisible[i].update(0, g_GameObjectAx, 0);
+                barriersVisible[i].update(
+                	barriersVisible[i].r, 
+                	barriersVisible[i].ax, 
+                	barriersVisible[i].ay);
                 barriersVisible[i].draw();
-                if (barriersVisible[i].x <= gameSprite.x + gameSprite.width) {
+                if (barriersVisible[i].x <= gameSprite.x + gameSprite.width) {	//	If barrier top left x smaller than the sprite right x
                     //**************************************
                     //	If collided then restart the game
                     //**************************************
@@ -265,8 +266,15 @@ var MainGameLoop = setInterval(function() {
                     }
                 }
                 //****************************************************************DEBUG****************************************
-                // GraphicsContext.drawPolygon(barriersVisible[i].bounding, "blue");
+                GraphicsContext.drawPolygon(barriersVisible[i].bounding, "blue");
             }
+
+
+            //***********************************************************
+            //	Show game record at the top right corner of the canvas
+            //	and the highest record at the top left corner
+            //***********************************************************
+            UIClass.showGameRecord(gameRecord, highestGameRecord);
         }
     }
 }, 1);

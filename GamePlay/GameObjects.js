@@ -36,9 +36,21 @@ var ImageObject = function(x, y, width, height, poly) {
     this.height = height || 0;
 
     //*******************
-    //	Object bounding
+    //  Object bounding
     //*******************
     this.bounding = poly || null;
+
+    //****************************
+    //  Accelerations
+    //****************************
+    this.ax = 0;
+    this.ay = 0;
+
+    //***********************************
+    //  Rotation angle and delta angle
+    //***********************************
+    this.r = 0;
+    this.dr = 0;
 
     //********************
     //  Object used flag
@@ -72,6 +84,7 @@ ImageObject.prototype.update = function(angle, ax, ay) {
         this.bounding.rotate(-angle * (180 / Math.PI));
         this.bounding.translate(ax, ay);
     }
+    this.r += this.dr;
 };
 
 //***********************
