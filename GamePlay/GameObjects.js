@@ -23,9 +23,9 @@ var ImageObject = function(x, y, width, height, poly) {
     this.imgIndex = 0;
     this.thisImgFrame = this.imgFrames[this.imgIndex];
 
-    //****************
-    //  Coordinates
-    //****************
+    //**************************
+    //  Top left Coordinates
+    //**************************
     this.x = x || 0;
     this.y = y || 0;
 
@@ -56,7 +56,8 @@ ImageObject.prototype.addImageFrame = function(url) {
 ImageObject.prototype.update = function(angle, ax, ay) {
     this.x += ax;
     this.y += ay;
-    this.thisImgFrame = this.imgFrames[this.imgIndex++ % this.imgFrames.length];
+    this.imgIndex = (this.imgIndex + 1) % this.imgFrames.length;
+    this.thisImgFrame = this.imgFrames[this.imgIndex];
     GraphicsContext.save();
     GraphicsContext.translate(this.getCenterX(), this.getCenterY());
     GraphicsContext.rotate(angle);

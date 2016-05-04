@@ -121,6 +121,19 @@ var UIClass = {
             GraphicsContext.height() * 0.5);
         GraphicsContext.restore();
     },
-
+    showLoadingScene: function(){
+        GraphicsContext.save();
+        GraphicsContext.canvasCtx.fillStyle = "rgba(0, 0, 0, 0.7)";
+        GraphicsContext.canvasCtx.fillRect(0, 0, GraphicsContext.width(), GraphicsContext.height());
+        GraphicsContext.canvasCtx.font = "bolder 84px Roboto";
+        GraphicsContext.canvasCtx.textBaseline = "middle";
+        GraphicsContext.canvasCtx.textAlign = "center";
+        GraphicsContext.canvasCtx.fillStyle = "white";
+        GraphicsContext.canvasCtx.fillText(
+            "Loading...",
+            GraphicsContext.width() * 0.5,
+            GraphicsContext.height() * 0.5);
+        GraphicsContext.restore();
+    }
 };
 

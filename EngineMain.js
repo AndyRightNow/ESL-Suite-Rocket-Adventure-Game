@@ -24,29 +24,41 @@ var isStop = true, //	Game loop start and pause flag
 //******************************
 //	Game background objects
 //******************************
-var gameSky = new ImageObject( //	Sky background
+var gameSkyWidth = 1257,
+	gameSkyHeight = 400,
+	backSkyPosX = gameSkyWidth - 27,
+
+	gameSkys = [
+	new ImageObject( 
         0,
         0,
-        GraphicsContext.width(),
-        GraphicsContext.height()),
+        gameSkyWidth,
+        gameSkyHeight),
+	
+	new ImageObject(
+		backSkyPosX,	//	Fix the border gap
+		0,
+		gameSkyWidth,
+		gameSkyHeight)],
 
-    cloudsCount = 3, //	Sky clouds count
+	frontSky = gameSkys[0],	//	Front Sky background for alternating
+	backSky = gameSkys[1];	//	Back Sky background for alternating
 
-    gameSkyClouds = new Array(cloudsCount); //	Sky clouds objects 
 
-gameSky.addImageFrame("http://orig11.deviantart.net/81b0/f/2013/353/5/b/on_a_clear_night_sky__background__by_oakfur422-d6yl3xc.png");
+frontSky.addImageFrame("img/Background/Sky.jpg");
+backSky.addImageFrame("img/Background/Sky.jpg");
 
 //******************************
 //	Game sprite
 //******************************
-var spriteWidth = 180,
+var spriteWidth = 220,
     spriteHeight = 80,
     spriteTopLeftPos = new Vector(GraphicsContext.width() * 0.05, 0),	 //	Position at the x% of the canvas width
     spriteCenterY,
     spriteCenterX,
     spriteAngle = 0, //	Angle between the direction the sprite is point at and the x axis
     spriteAy = 0, //	Vertical acceleration 
-    spriteAyCoef = 1.7, //	Acceleration coefficient, used to scale up or down the acceleration
+    spriteAyCoef = 2.3, //	Acceleration coefficient, used to scale up or down the acceleration
 
     spriteBoundingPoints = [
 					new Vector(71, 11),
@@ -79,15 +91,23 @@ var spriteWidth = 180,
     "img/Sprite/1.png",
     "img/Sprite/2.png",
     "img/Sprite/3.png",
-    "img/Sprite/4.png"];
+    "img/Sprite/4.png",
+    "img/Sprite/3.png",
+    "img/Sprite/2.png",
+    "img/Sprite/1.png"];
 
 for (var i = 0; i < spriteFrames.length; i++) { //	Add frames to the sprite
     gameSprite.addImageFrame(spriteFrames[i]);
 }
 
+//*********************************************
+//	Global Game Objects parameters
+//*********************************************
+var g_GameObjectAx = -1;
+
 var MainGameLoop = setInterval(function() {
     //********************************
-    //	Check if the user clicks
+    //	Check if the user click start
     //********************************
     if (InputClass.clickCount != 0) {
         isStop = false;
@@ -122,8 +142,19 @@ var MainGameLoop = setInterval(function() {
     //	The drawing below this line will be drawn under whatever is on the canvas
     GraphicsContext.setGlobalComposition("destination-over");
 
-    gameSky.update(0, 0, 0);
-    gameSky.draw();
+    //**********************************************
+    //	Alternate between front and back sky images
+    //**********************************************
+    frontSky.update(0, g_GameObjectAx, 0);
+    frontSky.draw();
+    backSky.update(0, g_GameObjectAx, 0);
+    backSky.draw();
+    if (backSky.x <= 0){	//	Swap front and back sky images
+    	var tmp = frontSky;
+    	frontSky = backSky;
+    	backSky = tmp;
+    	backSky.x = backSkyPosX;
+    }
 
     //	The drawing below this line will be drawn on top of whatever is on the canvas
     GraphicsContext.setGlobalComposition("source-over");
@@ -140,7 +171,9 @@ var MainGameLoop = setInterval(function() {
         //****************************
         UIClass.showPauseScene();
     } else { 
-
+    	if (!BarrierLoading.isDone()){
+    		UIClass.showLoadingScene();
+    	}
     }
 });
 
