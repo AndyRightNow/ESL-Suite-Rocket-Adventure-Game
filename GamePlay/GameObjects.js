@@ -39,6 +39,11 @@ var ImageObject = function(x, y, width, height, poly) {
     //	Object bounding
     //*******************
     this.bounding = poly || null;
+
+    //********************
+    //  Object used flag
+    //********************
+    this.used = false;
 };
 
 //***********************************************

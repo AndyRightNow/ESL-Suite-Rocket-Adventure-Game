@@ -105,12 +105,13 @@ for (var i = 0; i < spriteFrames.length; i++) { //	Add frames to the sprite
 //*********************************************
 var g_GameObjectAx = -1;
 
-//********************
-//	Game Record
-//********************
+//**************************
+//	Game Record and time
+//**************************
 var gameRecord = 0,
-	gameRecordCoef = 0.38,
-	highestGameRecord = 0;
+	gameRecordCoef = 0.5,
+	highestGameRecord = 0,
+	gameTime = 0;
 
 var MainGameLoop = setInterval(function() {
     //********************************
@@ -200,9 +201,14 @@ var MainGameLoop = setInterval(function() {
             //	Show game record at the top right corner of the canvas
             //	and the highest record at the top left corner
             //***********************************************************
-            gameRecord = parseInt(Timer.totalTime() * gameRecordCoef); 
+            gameTime = Timer.totalTime();
+            gameRecord = parseInt(gameTime * gameRecordCoef); 
             UIClass.showGameRecord(gameRecord, highestGameRecord);
+
+            //*************************************************************************DEBUG*******************************************
+    		showText(gameTime);
+
         }
     }
-});
+}, 1);
 
