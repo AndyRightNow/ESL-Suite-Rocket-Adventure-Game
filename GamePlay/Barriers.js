@@ -521,3 +521,9 @@ for (var i = 0; i < barrierFrames.length; i++) {
 
 barriersList.push(barrier);
 
+//******************************************************DEBUG****************************************
+for (var i = 0; i < barriersList.length; i++){
+    console.log(
+        barriersList[i].bounding.points[0].x,
+        barriersList[i].bounding.points[0].y);
+}
