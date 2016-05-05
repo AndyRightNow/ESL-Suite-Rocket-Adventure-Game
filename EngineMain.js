@@ -106,7 +106,7 @@ var g_GameObjectAx = -1,
 //	Game Record and time
 //**************************
 var gameRecord = 0,
-    gameRecordCoef = 0.5,
+    gameRecordCoef = 0.8,
     highestGameRecord = 0,
     gameTime = 0;
 

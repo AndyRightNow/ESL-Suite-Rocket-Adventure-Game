@@ -31,54 +31,18 @@ var BarrierGenerator = {
         var randGap = 0;
         if (this._lastBarrier !== null) {
             var base = this._lastBarrier.width;
-            var levelDevider = this._level === 0 ? 1 : this._level;
+            var levelDevider = this._level;
             randGap = base + Math.random() * HARDNESS / levelDevider;
         }
         return randGap;
     },
     setLevel: function(record) {
-        //********************************
-        //  Reach a new level every 10000
-        //********************************
-        var level = parseInt(record / 10000);
-        switch (level) {
-            case 0:
-                this._level = 0;
-                break;
-            case 1:
-                this._level = 1;
-                break;
-            case 2:
-                this._level = 2;
-                break;
-            case 3:
-                this._level = 3;
-                break;
-            case 4:
-                this._level = 4;
-                break;
-            case 5:
-                this._level = 5;
-                break;
-            case 6:
-                this._level = 6;
-                break;
-            case 7:
-                this._level = 7;
-                break;
-            case 8:
-                this._level = 8;
-                break;
-            case 9:
-                this._level = 9;
-                break;
-            case 10:
-                this._level = 10;
-                break;
-            default:
-                this._level = 11;
-                break;
-        }
+        //************************************************
+        //  Caluculate level based on certain points
+        //************************************************
+        var points = 10000;
+        
+        this._level = parseInt(record / points) === 0 ? 1 : record / points;
     },
     getThisBarrier: function(time, ax) {
 
