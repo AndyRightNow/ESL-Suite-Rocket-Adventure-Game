@@ -21,6 +21,10 @@ var Utility = {
 	getRandIndex: function(upperbound){
 		return parseInt((Math.random() * upperbound + Math.random() * upperbound) % upperbound);
 	},
+
+	//**************************
+	//	Randomly generate -1 or 1
+	//**************************
 	getPosiOrNega: function(){
 		var arr = [1, -1];
 		return arr[parseInt((Math.random() * 10 * Math.random() * 10) % 2)];
