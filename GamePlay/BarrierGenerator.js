@@ -105,8 +105,8 @@ var BarrierGenerator = {
         thisBarrier.ax = ax * (1 + Math.random());
         thisBarrier.ay = ax * (Math.random() * 0.5) * Utility.getPosiOrNega();
 
-        // thisBarrier.r = Math.random() * 10;
-        // thisBarrier.dr = Math.random() * Math.random() * 0.01;
+        thisBarrier.r = Math.random() * 10;
+        thisBarrier.dr = Math.random() * Math.random() * 0.01;
 
         this._lastBarrier = thisBarrier;
         this._lastBarrierIndex = thisBarrierIndex;

@@ -84,7 +84,6 @@ ImageObject.prototype.update = function(angle, ax, ay) {
         this.bounding.rotate(-angle * (180 / Math.PI));
         this.bounding.translate(ax, ay);
     }
-    this.r += this.dr;
 };
 
 //***********************
@@ -112,6 +111,9 @@ ImageObject.prototype.resetFlagAndPos = function(x, y){
     this.used = false;
     this.setX(x);
     this.setY(y);
+    this.r = 0;
+    this.ax = 0;
+    this.ay = 0;
 };
 
 //**********************************************************
@@ -120,6 +122,7 @@ ImageObject.prototype.resetFlagAndPos = function(x, y){
 ImageObject.prototype.setX = function(x){
     this.x = x;
     if (this.bounding !== null){
+        this.bounding.clearRotation();  //  In order to translate uniformly with the Image
         this.bounding.translate(-this.bounding.box.points[0].x, 0);
         this.bounding.translate(x, 0);
     }
@@ -127,8 +130,8 @@ ImageObject.prototype.setX = function(x){
 ImageObject.prototype.setY = function(y){
     this.y = y;
     if (this.bounding !== null){
+        this.bounding.clearRotation();  //  In order to translate uniformly with the Image
         this.bounding.translate(0, -this.bounding.box.points[0].y);
         this.bounding.translate(0, y);
     }
-
 };

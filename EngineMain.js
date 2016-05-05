@@ -252,6 +252,7 @@ var MainGameLoop = setInterval(function() {
                     barriersVisible[i].resetFlagAndPos(GraphicsContext.width(), 0);
                     barriersVisible.splice(i, 1);
                 }
+                barriersVisible[i].r += barriersVisible[i].dr;	//	Update rotation of the barrier
                 barriersVisible[i].update(
                 	barriersVisible[i].r, 
                 	barriersVisible[i].ax, 
