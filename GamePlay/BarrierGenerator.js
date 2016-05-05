@@ -15,6 +15,30 @@ var BarrierGenerator = {
     _lastBarrierIndex: null,
     _lastBarrierIssueTime: 0,
     _gapFromLastBarrier: 0, //  Counting from the top left pos
+    _setRandSpeedAndRotation: function(barrier, ax, flags) {
+        barrier.ax = ax * (1 + Math.random());
+        barrier.ay = ax * (Math.random() * 0.5) * Utility.getPosiOrNega();
+        barrier.r = Math.random() * 10;
+        barrier.dr = Math.random() * Math.random() * 0.01;
+
+        //***********************************************
+        //  Check flags and disable certain attributes
+        //***********************************************
+        for (var i = 0; i < flags.length; i++) {
+            switch (flags[i]) {
+                case "No Rotation":
+                    barrier.r = 0;
+                    barrier.dr = 0;
+                    break;
+                case "No Y Acceleration":
+                    barrier.ay = 0;
+                    break;
+                case "No X Acceleration":
+                    barrier.ax = 0;
+                    break;
+            }
+        }
+    },
     _getRandY: function() {
         var randY = (Math.random() * 528314 * Math.random()) % GraphicsContext.height();
         if (this._lastBarrier !== null) {
@@ -41,7 +65,7 @@ var BarrierGenerator = {
         //  Caluculate level based on certain points
         //************************************************
         var points = 10000;
-        
+
         this._level = parseInt(record / points) === 0 ? 1 : record / points;
     },
     getThisBarrier: function(time, ax) {
@@ -52,9 +76,9 @@ var BarrierGenerator = {
                 return null;
             }
         }
-        //********************************************
-        //  Get a barrier different from last one
-        //********************************************
+        //******************************************************
+        //  Get a barrier unused and different from last one
+        //******************************************************
         var thisBarrierIndex = Utility.getRandIndex(barriersList.length);
         if (thisBarrierIndex === this._lastBarrierIndex ||
             barriersList[thisBarrierIndex].used) {
@@ -63,14 +87,10 @@ var BarrierGenerator = {
         var thisBarrier = barriersList[thisBarrierIndex];
         thisBarrier.used = true;
 
+        this._setRandSpeedAndRotation(thisBarrier, ax, ["No Rotation"]);
+
         thisBarrier.setY(this._getRandY());
         this._gapFromLastBarrier = this._getRandGapFromLast();
-
-        thisBarrier.ax = ax * (1 + Math.random());
-        thisBarrier.ay = ax * (Math.random() * 0.5) * Utility.getPosiOrNega();
-
-        thisBarrier.r = Math.random() * 10;
-        thisBarrier.dr = Math.random() * Math.random() * 0.01;
 
         this._lastBarrier = thisBarrier;
         this._lastBarrierIndex = thisBarrierIndex;

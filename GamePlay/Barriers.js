@@ -23,6 +23,7 @@ var BarrierLoading = {
     }
 };
 
+
 //********************************
 //  Barriers list
 //********************************
@@ -75,6 +76,9 @@ var barrierBoundingBox = new Box(
 for (var i = 0; i < barrierFrames.length; i++) {
     barrier.addImageFrame(barrierFrames[i]);
 }
+
+
+
 
 barriersList.push(barrier);
 
