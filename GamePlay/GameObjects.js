@@ -8,6 +8,22 @@
 
 ***********************************************************************************************/
 
+//*************************************
+//  Check if all images are loaded
+//*************************************
+var ImageLoading = {
+    _imageNum: 0,
+    _imageLoaded: 0,
+    isDone: function(){
+        return this._imageLoaded === this._imageNum;
+    },
+    addNum: function(){
+        this._imageNum++;
+    },
+    addLoaded: function(){
+        this._imageLoaded++;
+    }
+};
 
 
 
@@ -65,9 +81,13 @@ var ImageObject = function(x, y, width, height, poly) {
 //  Add image frame as animation
 //***********************************************
 ImageObject.prototype.addImageFrame = function(url) {
+    ImageLoading.addNum();
     var tmpImg = new Image();
     tmpImg.src = url;
     this.imgFrames.push(tmpImg);
+    tmpImg.addEventListener("load", function(){
+        ImageLoading.addLoaded();
+    });
 };
 
 //*****************************************************

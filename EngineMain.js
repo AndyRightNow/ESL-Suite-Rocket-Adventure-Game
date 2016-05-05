@@ -217,7 +217,8 @@ var MainGameLoop = setInterval(function() {
         	UIClass.showRestartScene(highestGameRecord);
         }
     } else {
-        if (!BarrierLoading.isDone()) {
+        if (!BarrierLoading.isDone() ||
+            !ImageLoading.isDone()) {
             //	Show loading scene
             UIClass.showLoadingScene();
         } else {
