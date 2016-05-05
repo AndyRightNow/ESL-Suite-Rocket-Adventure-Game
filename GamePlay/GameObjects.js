@@ -56,6 +56,9 @@ var ImageObject = function(x, y, width, height, poly) {
     //  Object used flag
     //********************
     this.used = false;
+
+    //  Misc flags
+    this.flags = [];
 };
 
 //***********************************************

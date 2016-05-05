@@ -54,7 +54,7 @@ var spriteWidth = 220,
     spriteCenterX,
     spriteAngle = 0, //	Angle between the direction the sprite is point at and the x axis
     spriteAy = 0, //	Vertical acceleration 
-    spriteAyCoef = 2.3, //	Acceleration coefficient, used to scale up or down the acceleration
+    spriteAyCoef = 3.3, //	Acceleration coefficient, used to scale up or down the acceleration
 
     spriteBoundingPoints = [
 					new Vector(91, 11),
@@ -267,7 +267,7 @@ var MainGameLoop = setInterval(function() {
                     }
                 }
                 //****************************************************************DEBUG****************************************
-                GraphicsContext.drawPolygon(barriersVisible[i].bounding, "blue");
+                // GraphicsContext.drawPolygon(barriersVisible[i].bounding, "blue");
             }
 
 

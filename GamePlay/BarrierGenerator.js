@@ -19,7 +19,7 @@ var BarrierGenerator = {
         barrier.ax = ax * (1 + Math.random());
         barrier.ay = ax * (Math.random() * 0.5) * Utility.getPosiOrNega();
         barrier.r = Math.random() * 10;
-        barrier.dr = Math.random() * Math.random() * 0.01;
+        barrier.dr = Math.random() * Math.random() * 0.05;
 
         //***********************************************
         //  Check flags and disable certain attributes
@@ -87,7 +87,7 @@ var BarrierGenerator = {
         var thisBarrier = barriersList[thisBarrierIndex];
         thisBarrier.used = true;
 
-        this._setRandSpeedAndRotation(thisBarrier, ax, ["No Rotation"]);
+        this._setRandSpeedAndRotation(thisBarrier, ax, thisBarrier.flags);
 
         thisBarrier.setY(this._getRandY());
         this._gapFromLastBarrier = this._getRandGapFromLast();
