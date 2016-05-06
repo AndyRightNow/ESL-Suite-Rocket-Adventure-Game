@@ -14,8 +14,8 @@ var TEST_lastClickCount = 0;
 //********************************
 //	Images
 //********************************
-var TEST_tmp = new ImageObject(0, 0, 100, 100);
-TEST_tmp.addImageFrame("img/Barriers/10.png");
+var TEST_tmp = new ImageObject(0, 0, 100, 40);
+TEST_tmp.addImageFrame("img/Barriers/7.png");
 show("barrierWidth = " + TEST_tmp.width + ";");
 show("barrierHeight = " + TEST_tmp.height + ";");
 
