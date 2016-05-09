@@ -128,9 +128,65 @@ var Utility = {
     getRandIndex: function(upperbound){
         return parseInt((Math.random() * upperbound + Math.random() * upperbound) % upperbound);
     },
+
+    //**************************
+    //  Randomly generate -1 or 1
+    //**************************
     getPosiOrNega: function(){
         var arr = [1, -1];
         return arr[parseInt((Math.random() * 10 * Math.random() * 10) % 2)];
+    }
+};
+/*************************************************************************************
+                                        Time Class
+
+                                   Created By Andy Zhou
+
+    Overview:
+
+    Used to track the passing time of the game
+
+*************************************************************************************/
+
+"use strict";
+
+
+var Timer = {
+    _date: 0,
+    _totalTime: 0,
+    _startTime: 0,
+    _started: false,
+    _reset: function(){
+        this._startTime = 0;
+        this._totalTime = 0;
+        this._date = new Date();
+    },
+    start: function(){
+        this._date = new Date();
+        var h = this._date.getUTCHours();
+        var m = this._date.getUTCMinutes();
+        var s = this._date.getUTCSeconds();
+        var ms = this._date.getUTCMilliseconds();
+        var curTime = h * 60 * 60 * 1000 + m * 60 * 1000 + s * 1000 + ms;
+        this._startTime = curTime;
+        this._started = true;
+    },
+    stop: function(){
+        this._started = false;
+        this._reset();
+    },
+    totalTime: function(){
+        this._date = new Date();
+        var h = this._date.getUTCHours();
+        var m = this._date.getUTCMinutes();
+        var s = this._date.getUTCSeconds();
+        var ms = this._date.getUTCMilliseconds();
+        var curTime = h * 60 * 60 * 1000 + m * 60 * 1000 + s * 1000 + ms;
+        this._totalTime = curTime - this._startTime;
+        return this._totalTime;
+    },
+    isRunning: function(){
+        return this._started;
     }
 };
 /*************************************************************************************
@@ -307,59 +363,6 @@ Polygon.prototype.scale = function(x, y) {
     this.box.scale(x, y);
     this.translate(cx, cy);
     return this;
-};
-
-/*************************************************************************************
-                                        Time Class
-
-                                   Created By Andy Zhou
-
-    Overview:
-
-    Used to track the passing time of the game
-
-*************************************************************************************/
-
-"use strict";
-
-
-var Timer = {
-    _date: 0,
-    _totalTime: 0,
-    _startTime: 0,
-    _started: false,
-    _reset: function(){
-        this._startTime = 0;
-        this._totalTime = 0;
-        this._date = new Date();
-    },
-    start: function(){
-        this._date = new Date();
-        var h = this._date.getUTCHours();
-        var m = this._date.getUTCMinutes();
-        var s = this._date.getUTCSeconds();
-        var ms = this._date.getUTCMilliseconds();
-        var curTime = h * 60 * 60 * 1000 + m * 60 * 1000 + s * 1000 + ms;
-        this._startTime = curTime;
-        this._started = true;
-    },
-    stop: function(){
-        this._started = false;
-        this._reset();
-    },
-    totalTime: function(){
-        this._date = new Date();
-        var h = this._date.getUTCHours();
-        var m = this._date.getUTCMinutes();
-        var s = this._date.getUTCSeconds();
-        var ms = this._date.getUTCMilliseconds();
-        var curTime = h * 60 * 60 * 1000 + m * 60 * 1000 + s * 1000 + ms;
-        this._totalTime = curTime - this._startTime;
-        return this._totalTime;
-    },
-    isRunning: function(){
-        return this._started;
-    }
 };
 /*************************************************************************************
                                         Physics Class
@@ -903,6 +906,7 @@ ImageObject.prototype.setY = function(y){
         this.bounding.translate(0, y);
     }
 };
+
 /***********************************************************************************************
                                         Barrier Generator
 
@@ -1254,47 +1258,34 @@ for (var i = 0; i < barrierFrames.length; i++) {
 
 barriersList.push(barrier);
 //********************************
-//  Barrier: Supreman
+//  Barrier: Spaceship
 //********************************
-barrierWidth = 80;
-barrierHeight = 153;
+barrierWidth = 180;
+barrierHeight = 70;
 
 barrierBoundingPoints = [
-    new Vector(14, 2),
-    new Vector(22, 1),
-    new Vector(28, 4),
-    new Vector(29, 17),
-    new Vector(38, 25),
-    new Vector(40, 31),
-    new Vector(45, 49),
-    new Vector(45, 59),
-    new Vector(44, 65),
-    new Vector(45, 75),
-    new Vector(48, 85),
-    new Vector(51, 90),
-    new Vector(64, 90),
-    new Vector(79, 100),
-    new Vector(77, 106),
-    new Vector(74, 101),
-    new Vector(74, 97),
-    new Vector(66, 97),
-    new Vector(63, 100),
-    new Vector(63, 104),
-    new Vector(48, 113),
-    new Vector(43, 101),
-    new Vector(37, 108),
-    new Vector(39, 146),
-    new Vector(33, 150),
-    new Vector(26, 118),
-    new Vector(27, 135),
-    new Vector(11, 150),
-    new Vector(13, 106),
-    new Vector(3, 102),
-    new Vector(2, 73),
-    new Vector(2, 50),
-    new Vector(4, 33),
-    new Vector(7, 24),
-    new Vector(15, 20)];
+new Vector(2, 35),
+new Vector(18, 34),
+new Vector(49, 21),
+new Vector(86, 17),
+new Vector(113, 6),
+new Vector(132, 1),
+new Vector(175, 0),
+new Vector(135, 11),
+new Vector(122, 16),
+new Vector(141, 19),
+new Vector(140, 25),
+new Vector(155, 25),
+new Vector(156, 40),
+new Vector(142, 41),
+new Vector(141, 47),
+new Vector(121, 51),
+new Vector(136, 57),
+new Vector(175, 70),
+new Vector(115, 66),
+new Vector(86, 52),
+new Vector(64, 52),
+new Vector(19, 35)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
     barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
@@ -1310,7 +1301,7 @@ barrierBounding = new Polygon(
     barriersStartingTopLeftPos,
     barrierBoundingBox);
 
-barrierFrames = ["https://farm8.staticflickr.com/7475/26223204823_1819b5dd4c_o.png"];
+barrierFrames = ["https://farm8.staticflickr.com/7475/26223204823_d5176e114e_o.png"];
 
 barrier = new ImageObject(
     barriersStartingTopLeftPos.x,
@@ -1328,38 +1319,28 @@ barrier.flags = ["No Rotation", "No Y Acceleration"];
 
 barriersList.push(barrier);
 //********************************
-//  Barrier: Iron man
+//  Barrier: Spaceship
 //********************************
-barrierWidth = 150;
-barrierHeight = 57;
-
+barrierWidth = 100;
+barrierHeight = 40;
 
 barrierBoundingPoints = [
-    new Vector(5, 16),
-    new Vector(11, 18),
-    new Vector(17, 8),
-    new Vector(25, 6),
-    new Vector(30, 5),
-    new Vector(62, 0),
-    new Vector(71, 4),
-    new Vector(62, 10),
-    new Vector(36, 15),
-    new Vector(81, 27),
-    new Vector(145, 42),
-    new Vector(144, 49),
-    new Vector(104, 45),
-    new Vector(100, 48),
-    new Vector(84, 41),
-    new Vector(55, 44),
-    new Vector(36, 36),
-    new Vector(31, 38),
-    new Vector(46, 53),
-    new Vector(40, 55),
-    new Vector(20, 45),
-    new Vector(10, 43),
-    new Vector(9, 33),
-    new Vector(2, 25),
-    new Vector(2, 16)];
+new Vector(28, 13),
+new Vector(34, 5),
+new Vector(44, 1),
+new Vector(55, 0),
+new Vector(65, 5),
+new Vector(80, 3),
+new Vector(98, 8),
+new Vector(81, 18),
+new Vector(77, 25),
+new Vector(70, 30),
+new Vector(55, 37),
+new Vector(36, 39),
+new Vector(30, 39),
+new Vector(27, 37),
+new Vector(9, 38),
+new Vector(12, 23)];
 
 for (var i = 0; i < barrierBoundingPoints.length; i++) {
     barrierBoundingPoints[i].translate(barriersStartingTopLeftPos.x, 0);
@@ -1375,7 +1356,7 @@ barrierBounding = new Polygon(
     barriersStartingTopLeftPos,
     barrierBoundingBox);
 
-barrierFrames = ["https://farm8.staticflickr.com/7107/26793431736_89134c3ee6_o.png"];
+barrierFrames = ["https://farm8.staticflickr.com/7107/26793431736_306b7bcc20_o.png"];
 
 barrier = new ImageObject(
     barriersStartingTopLeftPos.x,
@@ -1389,7 +1370,7 @@ for (var i = 0; i < barrierFrames.length; i++) {
     barrier.addImageFrame(barrierFrames[i]);
 }
 
-barrier.flags = ["No Rotation", "No Y Acceleration"];
+barrier.flags = ["No Rotation"];
 barriersList.push(barrier);
 //********************************
 //  Barrier: Slipper
@@ -1636,6 +1617,7 @@ for (var i = 0; i < barrierFrames.length; i++) {
 
 barriersList.push(barrier);
 
+
 /*************************************************************************************
                                 ESL Suite Rocket Adventure Game
 
@@ -1724,9 +1706,9 @@ var spriteWidth = 220,
     spriteFrames = [ // Use to compose sprite animation
     "https://farm8.staticflickr.com/7283/26793419686_c3a4739e92_o.png",
     "https://farm8.staticflickr.com/7435/26734072542_6a893f327c_o.png",
-    "https://farm8.staticflickr.com/7435/26734072542_6a893f327c_o.png",
+    "https://farm8.staticflickr.com/7672/26734072482_ab7ce58450_o.png",
     "https://farm8.staticflickr.com/7128/26793419486_e3f075d25d_o.png",
-    "https://farm8.staticflickr.com/7435/26734072542_6a893f327c_o.png",
+    "https://farm8.staticflickr.com/7672/26734072482_ab7ce58450_o.png",
     "https://farm8.staticflickr.com/7435/26734072542_6a893f327c_o.png",
     "https://farm8.staticflickr.com/7283/26793419686_c3a4739e92_o.png"];
 
