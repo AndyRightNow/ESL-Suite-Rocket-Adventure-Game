@@ -30,12 +30,12 @@ var InputClass = {
 
     //Listen to the user input and get the members data
     listen: function() {
-        var canvasOffsetLeft = $(GraphicsContext.canvas).offset().left;
-        var canvasOffsetTop = $(GraphicsContext.canvas).offset().top;
         //*******************************
         //  Get the mouse coordinates
         //*******************************
         document.addEventListener("mousemove", function(event) {
+        var canvasOffsetLeft = $(GraphicsContext.canvas).offset().left;
+        var canvasOffsetTop = $(GraphicsContext.canvas).offset().top;
             if (InputClass._mouseMove) {
                 InputClass.mouseX = event.pageX - canvasOffsetLeft;
                 InputClass.mouseY = event.pageY - canvasOffsetTop;
