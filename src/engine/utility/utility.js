@@ -9,7 +9,6 @@
 
 *************************************************************************************/
 
-"use strict";
 
 //***********************
 //	General Utility
@@ -30,3 +29,5 @@ var Utility = {
 		return arr[parseInt((Math.random() * 10 * Math.random() * 10) % 2)];
 	}
 };
+
+module.exports = Utility;

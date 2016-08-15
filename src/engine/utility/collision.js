@@ -1,20 +1,18 @@
-/*************************************************************************************
-										Physics Class
+/*
+ *
+ * Physics Class
+ *
+ * Physics simulations including collition detection
+ *
+ */
 
-								   Created By Andy Zhou
+var Vector = require('./vector');
 
-	Overview:
-
-	Physics simulations including collition detection
-
-*************************************************************************************/
-
-"use strict";
 
 //***********************************************
 //	Collision Detection Helper functions
 //***********************************************
-var colliDetectHelper = {
+var _colliDetectHelper = {
     getEdge: function(v1, v2) {
         return new Vector(v2.x - v1.x, v2.y - v1.y).perp();
     },
@@ -24,12 +22,12 @@ var colliDetectHelper = {
     //	Return an array consisting of min point and max point
     //****************************************************************
     flattenPolygonOnAxis: function(poly, axis) {
-        var maxWidth = GraphicsContext.width(),
-            maxHeight = GraphicsContext.height();
+        var maxWidth = 0xffffffff,
+            maxHeight = 0xffffffff;
         var minMaxPoints = [
-        new Vector(maxWidth, maxHeight), 
-        new Vector(-GraphicsContext.width(),
-            -GraphicsContext.height())];
+        new Vector(maxWidth, maxHeight),
+        new Vector(-0xffffffff,
+            -0xffffffff)];
         var proj;
         for (var i = 0; i < poly.points.length; i++) {
             proj = poly.points[i].project(axis);
@@ -45,9 +43,10 @@ var colliDetectHelper = {
 };
 
 var colliDetect = {
+
     _isSeparatedAxis: function(poly1, poly2, axis) {
-        var poly1Proj = colliDetectHelper.flattenPolygonOnAxis(poly1, axis);
-        var poly2Proj = colliDetectHelper.flattenPolygonOnAxis(poly2, axis);
+        var poly1Proj = _colliDetectHelper.flattenPolygonOnAxis(poly1, axis);
+        var poly2Proj = _colliDetectHelper.flattenPolygonOnAxis(poly2, axis);
         poly1Proj = [
         poly1Proj[0].project(new Vector(1, 0)),
         poly1Proj[1].project(new Vector(1, 0))];
@@ -58,7 +57,7 @@ var colliDetect = {
         if (poly1Proj[0].x < poly2Proj[0].x) {
             front = poly2Proj;
             back = poly1Proj;
-        } 
+        }
         else {
         	front = poly1Proj;
         	back = poly2Proj;
@@ -70,16 +69,17 @@ var colliDetect = {
         	return true;
         }
     },
+
     detect: function(poly1, poly2){
     	var range = poly1.points;
     	var res;
     		var axis;
     	for (var i = 0; i < range.length; i++){
     		if (i === range.length - 1){
-    			axis = colliDetectHelper.getEdge(range[i], range[0]);
+    			axis = _colliDetectHelper.getEdge(range[i], range[0]);
     		}
     		else{
-    			axis = colliDetectHelper.getEdge(range[i], range[i + 1]);
+    			axis = _colliDetectHelper.getEdge(range[i], range[i + 1]);
     		}
     		res = this._isSeparatedAxis(poly1, poly2, axis);
     		if (res){
@@ -87,12 +87,12 @@ var colliDetect = {
     		}
     	}
     	range = poly2.points;
-    	for (var i = 0; i < range.length; i++){
+    	for (i = 0; i < range.length; i++){
     		if (i === range.length - 1){
-    			axis = colliDetectHelper.getEdge(range[i], range[0]);
+    			axis = _colliDetectHelper.getEdge(range[i], range[0]);
     		}
     		else{
-    			axis = colliDetectHelper.getEdge(range[i], range[i + 1]);
+    			axis = _colliDetectHelper.getEdge(range[i], range[i + 1]);
     		}
     		res = this._isSeparatedAxis(poly1, poly2, axis);
     		if (res){
@@ -103,3 +103,4 @@ var colliDetect = {
     }
 };
 
+module.exports = colliDetect;

@@ -1,12 +1,14 @@
 /**********************************************************************************************
                                     Game Play Objects
-                                
+
                                     Created By Andy
 
     Overview:
     General game object class containing all information necessary
 
 ***********************************************************************************************/
+
+var GraphicsContext = require('./../../engine/graphics');
 
 //*************************************
 //  Check if all images are loaded
@@ -25,12 +27,10 @@ var ImageLoading = {
     }
 };
 
-
-
 //************************
 //  General Image Object
 //************************
-var ImageObject = function(x, y, width, height, poly) {
+function ImageObject(x, y, width, height, poly) {
 
     //************************
     //  Image Object Images
@@ -75,7 +75,7 @@ var ImageObject = function(x, y, width, height, poly) {
 
     //  Misc flags
     this.flags = [];
-};
+}
 
 //***********************************************
 //  Add image frame as animation
@@ -157,4 +157,9 @@ ImageObject.prototype.setY = function(y){
         this.bounding.translate(0, -this.bounding.box.points[0].y);
         this.bounding.translate(0, y);
     }
+};
+
+module.exports = {
+    'ImageLoading': ImageLoading,
+    'ImageObject': ImageObject
 };

@@ -9,6 +9,8 @@
 
 *************************************************************************************/
 
+var Vector = require('./vector');
+
 //**************************************
 //  Circle Object and its operations
 //**************************************
@@ -91,8 +93,8 @@ var Polygon = function(points, topLeftPosV, box) {
     //*********************************
     //  Calculate the bounding box
     //*********************************
-    var minX = GraphicsContext.width(),
-        minY = GraphicsContext.height(),
+    var minX = 0xffffffff,
+        minY = 0xffffffff,
         maxX = 0,
         maxY = 0,
         w = 0,
@@ -174,3 +176,8 @@ Polygon.prototype.scale = function(x, y) {
     return this;
 };
 
+module.exports = {
+    'Circle': Circle,
+    'Box': Box,
+    'Polygon': Polygon
+};

@@ -1,13 +1,6 @@
-/*************************************************************************************
-										Vector Class
-
-								   Created By Andy Zhou
-
-	Overview:
-
-	Vector and vector operations.
-
-*************************************************************************************/
+/*
+ * Vector and vector operations.
+ */
 
 //************************
 //	Constructor
@@ -105,3 +98,5 @@ Vector.prototype.projectN = function(axis){
 	var cof =  this.dot(axis);
 	return axis.scale(cof);
 };
+
+module.exports = Vector;

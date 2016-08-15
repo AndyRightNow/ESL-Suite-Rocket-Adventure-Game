@@ -8,6 +8,10 @@
 
 ***********************************************************************************************/
 
+var Barriers = require('./barriers');
+var Utility = require('./../../engine/utility/utility');
+var GraphicsContext = require('./../../engine/graphics');
+
 var BarrierGenerator = {
     _record: 0,
     _level: 0,
@@ -79,12 +83,12 @@ var BarrierGenerator = {
         //******************************************************
         //  Get a barrier unused and different from last one
         //******************************************************
-        var thisBarrierIndex = Utility.getRandIndex(barriersList.length);
+        var thisBarrierIndex = Utility.getRandIndex(Barriers.barriersList.length);
         if (thisBarrierIndex === this._lastBarrierIndex ||
-            barriersList[thisBarrierIndex].used) {
+            Barriers.barriersList[thisBarrierIndex].used) {
             return null;
         }
-        var thisBarrier = barriersList[thisBarrierIndex];
+        var thisBarrier = Barriers.barriersList[thisBarrierIndex];
         thisBarrier.used = true;
 
         this._setRandSpeedAndRotation(thisBarrier, ax, thisBarrier.flags);
@@ -108,3 +112,4 @@ var BarrierGenerator = {
     }
 };
 
+module.exports = BarrierGenerator;
