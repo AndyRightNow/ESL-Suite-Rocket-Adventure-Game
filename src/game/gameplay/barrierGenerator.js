@@ -7,7 +7,9 @@
     Barrier generator based on game record and game time
 
 ***********************************************************************************************/
-
+//--------------------------------------
+//  Dependencies
+//--------------------------------------
 var Barriers = require('./barriers');
 var Utility = require('./../../engine/utility/utility');
 var GraphicsContext = require('./../../engine/graphics');

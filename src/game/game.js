@@ -1,3 +1,6 @@
+//--------------------------------------
+//  Dependencies
+//--------------------------------------
 var Engine = require('./../engine/engine');
 var Vector = require('./../engine/utility/vector');
 var ImageObject = require('./gameplay/gameObjects').ImageObject;
@@ -8,7 +11,6 @@ var GraphicsContext = require('./../engine/graphics');
 var InputClass = require('./../engine/input');
 var UIClass = require('./ui');
 var Timer = require('./../engine/utility/timer');
-var BarrierLoading = require('./gameplay/barriers').BarrierLoading;
 var colliDetect = require('./../engine/utility/collision');
 var BarrierGenerator = require('./gameplay/barrierGenerator');
 var Barriers = require('./gameplay/barriers');

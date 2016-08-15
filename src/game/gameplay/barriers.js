@@ -8,7 +8,9 @@
     Barrier objects declarations
 
 ***********************************************************************************/
-
+//--------------------------------------
+//  Dependencies
+//--------------------------------------
 var GraphicsContext = require('./../../engine/graphics');
 var Vector = require('./../../engine/utility/vector');
 var Box = require('./../../engine/utility/shape').Box;

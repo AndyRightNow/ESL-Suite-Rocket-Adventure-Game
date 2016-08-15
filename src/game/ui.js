@@ -1,3 +1,6 @@
+//--------------------------------------
+//  Dependencies
+//--------------------------------------
 var GraphicsContext = require('./../engine/graphics');
 
 var UIClass = {

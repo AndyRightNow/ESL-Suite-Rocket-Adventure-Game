@@ -98,7 +98,8 @@ var InputClass = {
 
     //Listen to the user input and get the members data
     init: function(withMouseEvents) {
-        if (withMouseEvents || true) {
+        withMouseEvents = withMouseEvents || true;
+        if (withMouseEvents) {
             this._addMouseEvents();
         }
 
