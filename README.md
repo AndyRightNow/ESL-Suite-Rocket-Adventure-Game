@@ -29,7 +29,7 @@ If you want to try it yourself, remember to write:
 ```javascript
 Game.init(YourCanvasId);
 ```
-The parameter ```YourCanvasId``` is the canvas the game will be shown on. The size of the canvas'd better be 1000 x 400 and the height should be no larger than 500.
+The parameter ```YourCanvasId``` is the canvas the game will be shown on. The size of the canvas'd better be **1000 x 400** and the height should be no larger than **500**.
 
 **Created By Andy Zhou**
 
