@@ -6,28 +6,39 @@
  *
  */
 
+//------------------------------------
+//  Dependencies
+//------------------------------------
 var Vector = require('./vector');
-
 
 //***********************************************
 //	Collision Detection Helper functions
 //***********************************************
 var _colliDetectHelper = {
+    /*
+     * Get the edge for testing SAT
+     * Here an edge means the vector perpendicular to the vector formed by
+     * subtracting two points
+     *
+     * @return {Vector} the edge
+     * @param {Vector} v1, v2: Two vectors(points) to get from
+     */
     getEdge: function(v1, v2) {
         return new Vector(v2.x - v1.x, v2.y - v1.y).perp();
     },
 
-    //****************************************************************
-    //	Project all the points of a polygon to a axis
-    //	Return an array consisting of min point and max point
-    //****************************************************************
+    /*
+     * Project all the points of a polygon to a axis
+     *
+     * @return {Array} an array of two points indicating the axis
+     * @param {Polygon} poly: A polygon
+     * @param {Vector} axis: The axis to project to
+     */
     flattenPolygonOnAxis: function(poly, axis) {
-        var maxWidth = 0xffffffff,
-            maxHeight = 0xffffffff;
         var minMaxPoints = [
-        new Vector(maxWidth, maxHeight),
-        new Vector(-0xffffffff,
-            -0xffffffff)];
+            new Vector(0xffffffff, 0xffffffff),
+            new Vector(-0xffffffff, -0xffffffff)];
+
         var proj;
         for (var i = 0; i < poly.points.length; i++) {
             proj = poly.points[i].project(axis);
@@ -44,62 +55,53 @@ var _colliDetectHelper = {
 
 var colliDetect = {
 
+    /*
+     * Check if this axis is a separated axis for two polygons
+     *
+     * @return {Boolean} true or false
+     * @param {Polygon} poly1, poly2: Two polygons to test on
+     * @param {Vector} axis: The axis to test on
+     */
     _isSeparatedAxis: function(poly1, poly2, axis) {
-        var poly1Proj = _colliDetectHelper.flattenPolygonOnAxis(poly1, axis);
-        var poly2Proj = _colliDetectHelper.flattenPolygonOnAxis(poly2, axis);
-        poly1Proj = [
-        poly1Proj[0].project(new Vector(1, 0)),
-        poly1Proj[1].project(new Vector(1, 0))];
-        poly2Proj = [
-        poly2Proj[0].project(new Vector(1, 0)),
-        poly2Proj[1].project(new Vector(1, 0))];
-        var front, back;
+        //----------------------------------------------
+        // Project the two polygons twice:
+        // 1. First to the axis to test on
+        // 2. Second to the x axis for the sake of simplicity
+        //---------------------------------------------------
+        var poly1Proj = _colliDetectHelper.flattenPolygonOnAxis(poly1, axis)
+            .map(function(ele){
+                return ele.project(new Vector(1, 0));
+            });
+        var poly2Proj = _colliDetectHelper.flattenPolygonOnAxis(poly2, axis)
+            .map(function(ele){
+                return ele.project(new Vector(1, 0));
+            });
+
+        var front = poly1Proj, back = poly2Proj;
         if (poly1Proj[0].x < poly2Proj[0].x) {
             front = poly2Proj;
             back = poly1Proj;
         }
-        else {
-        	front = poly1Proj;
-        	back = poly2Proj;
-        }
-        if (front[0].x <= back[1].x){
-        	return false;
-        }
-        else{
-        	return true;
-        }
+
+        //  Check if the min of the front is greater than the max of the back
+        return front[0].x > back[1].x;
     },
 
+    /*
+     * Check if two polygons collide and return true if they do
+     *
+     * @return {Boolean} true if two polygons collide and false if not
+     * @param {Polygon} poly1, poly2: Two polygons to test on
+     */
     detect: function(poly1, poly2){
-    	var range = poly1.points;
-    	var res;
-    		var axis;
-    	for (var i = 0; i < range.length; i++){
-    		if (i === range.length - 1){
-    			axis = _colliDetectHelper.getEdge(range[i], range[0]);
-    		}
-    		else{
-    			axis = _colliDetectHelper.getEdge(range[i], range[i + 1]);
-    		}
-    		res = this._isSeparatedAxis(poly1, poly2, axis);
-    		if (res){
-    			return false;
-    		}
-    	}
-    	range = poly2.points;
-    	for (i = 0; i < range.length; i++){
-    		if (i === range.length - 1){
-    			axis = _colliDetectHelper.getEdge(range[i], range[0]);
-    		}
-    		else{
-    			axis = _colliDetectHelper.getEdge(range[i], range[i + 1]);
-    		}
-    		res = this._isSeparatedAxis(poly1, poly2, axis);
-    		if (res){
-    			return false;
-    		}
-    	}
-    	return true;
+        return [poly1.points, poly2.points].every(function(points){
+            return points.every(function(ele, i){
+                //  If there is one separated axis two polygons won't collide
+                return !colliDetect._isSeparatedAxis(poly1, poly2,
+                    //  Check every two points as well as the last with the first
+                    _colliDetectHelper.getEdge(points[i], points[(i === points.length - 1) ? 0 : i + 1]));
+            });
+        });
     }
 };
 

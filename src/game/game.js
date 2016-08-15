@@ -106,7 +106,7 @@ var Game = {
         //  Game Record and time
         //**************************
         var gameRecord = 0,
-            gameRecordCoef = 0.8,
+            gameRecordCoef = 10,
             highestGameRecord = 0,
             gameTime = 0;
 
@@ -128,7 +128,7 @@ var Game = {
             }
 
             gameRecord = 0;
-            gameRecordCoef = 0.5;
+            gameRecordCoef = 10.5;
             gameTime = 0;
 
             for (var i = 0; i < barriersVisible.length; i++) {
@@ -247,6 +247,7 @@ var Game = {
                             barriersVisible[i].resetFlagAndPos(GraphicsContext.width(), 0);
                             barriersVisible.splice(i, 1);
                         }
+                        if (typeof barriersVisible[i] === 'undefined') console.log(i, barriersVisible, barriersVisible[i]);
                         barriersVisible[i].r += barriersVisible[i].dr; //   Update rotation of the barrier
                         barriersVisible[i].update(
                             barriersVisible[i].r,

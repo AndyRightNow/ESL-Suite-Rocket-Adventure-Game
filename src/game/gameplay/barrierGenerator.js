@@ -19,6 +19,7 @@ var BarrierGenerator = {
     _lastBarrierIndex: null,
     _lastBarrierIssueTime: 0,
     _gapFromLastBarrier: 0, //  Counting from the top left pos
+
     _setRandSpeedAndRotation: function(barrier, ax, flags) {
         barrier.ax = ax * (1 + Math.random());
         barrier.ay = ax * (Math.random() * 0.5) * Utility.getPosiOrNega();
@@ -43,6 +44,7 @@ var BarrierGenerator = {
             }
         }
     },
+
     _getRandY: function() {
         var randY = (Math.random() * 528314 * Math.random()) % GraphicsContext.height();
         if (this._lastBarrier !== null) {
@@ -54,9 +56,12 @@ var BarrierGenerator = {
         }
         return randY;
     },
+
     _getRandGapFromLast: function() {
-        var HARDNESS = 5000;
+        var HARDNESS = 1500;
+
         var randGap = 0;
+
         if (this._lastBarrier !== null) {
             var base = this._lastBarrier.width;
             var levelDevider = this._level;
@@ -64,14 +69,16 @@ var BarrierGenerator = {
         }
         return randGap;
     },
+
     setLevel: function(record) {
         //************************************************
         //  Caluculate level based on certain points
         //************************************************
-        var points = 10000;
+        var points = 3000;
 
         this._level = parseInt(record / points) === 0 ? 1 : record / points;
     },
+
     getThisBarrier: function(time, ax) {
 
         if (this._lastBarrier !== null) { //    Check if it's the first barrier issued
