@@ -18,7 +18,7 @@ var Utility = {
 	//	Get a random index in within a range
 	//*********************************************
 	getRandIndex: function(upperbound){
-		return parseInt((Math.random() * upperbound + Math.random() * upperbound) % upperbound);
+		return parseInt((Math.random() * upperbound * 10 + Math.random() * upperbound * 10) % upperbound);
 	},
 
 	//**************************
@@ -26,7 +26,7 @@ var Utility = {
 	//**************************
 	getPosiOrNega: function(){
 		var arr = [1, -1];
-		return arr[parseInt((Math.random() * 10 * Math.random() * 10) % 2)];
+		return arr[Utility.getRandIndex(2)];
 	}
 };
 
