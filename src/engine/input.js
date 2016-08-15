@@ -24,6 +24,9 @@ var InputClass = {
     _lastMouseX: 0,
     _lastMouseY: 0,
 
+    _keys: [],
+    _keyDown: [],
+
     get mouseX() {
         return this._mouseX;
     },
@@ -32,7 +35,7 @@ var InputClass = {
         return this._mouseY;
     },
 
-    //  Click the canvas count
+    //  The count of clicks on the canvas
     _clickCount: 0,
     _lastClick: new Vector(),
 
@@ -44,11 +47,10 @@ var InputClass = {
         return this._lastClick;
     },
 
-    //Listen to the user input and get the members data
-    init: function() {
-        //*******************************
+    _addMouseEvents: function() {
+        //-------------------------------
         //  Get the mouse coordinates
-        //*******************************
+        //-------------------------------
         document.addEventListener("mousemove", function(event) {
             var canvasOffsetLeft = GraphicsContext.offsetLeft();
             var canvasOffsetTop = GraphicsContext.offsetTop();
@@ -63,9 +65,9 @@ var InputClass = {
             }
         });
 
-        //*******************************
+        //------------------------------
         //  Get the mouse movement state
-        //*******************************
+        //------------------------------
         GraphicsContext.canvas().addEventListener("mouseenter", function(event) {
             InputClass._mouseMove = true;
         });
@@ -73,13 +75,43 @@ var InputClass = {
             InputClass._mouseMove = false;
         });
 
-        //*******************************
+        //------------------------------
         //  Get clicks count
-        //*******************************
+        //------------------------------
         GraphicsContext.canvas().addEventListener("click", function(event) {
             InputClass._clickCount++;
             InputClass._lastClick.x = InputClass._mouseX;
             InputClass._lastClick.y = InputClass._mouseY;
+        });
+    },
+
+    addKey: function(keyCode) {
+        if (this._keys.indexOf(keyCode) === -1) {
+            this._keys.push(keyCode);
+            this._keyDown[keyCode] = 0;
+        }
+    },
+
+    keyPressedCount: function(keyCode) {
+        return this._keyDown[keyCode];
+    },
+
+    //Listen to the user input and get the members data
+    init: function(withMouseEvents) {
+        if (withMouseEvents || true) {
+            this._addMouseEvents();
+        }
+
+        document.addEventListener('keydown', function(e){
+            var code = e.keyCode || e.which;
+            if (InputClass._keys.indexOf(code) !== -1)
+                InputClass._keyStates[code]++;
+        });
+
+        document.addEventListener('keyup', function(e){
+            var code = e.keyCode || e.which;
+            if (InputClass._keys.indexOf(code) !== -1)
+                InputClass._keyStates[code]++;
         });
     },
 
