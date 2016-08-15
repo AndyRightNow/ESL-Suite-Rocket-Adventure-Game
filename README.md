@@ -16,7 +16,9 @@ The engine is in ``` src/engine/ ```  directory. It provides basic utilities of 
     5) ```vector.js``` - vector object and operations
 
 2. ```input.js``` - encapsulations of document mouse and keys events
+
 3. ```graphics.js``` - encapsulations of HTML 2D Canvas drawing
+
 4. ```engine.js``` - main file of the engine, controlling initializations of other sub-systems and the game loop.
 
 ## A Simple Arcade Game: ESL Suite Rocket Adventure Game
