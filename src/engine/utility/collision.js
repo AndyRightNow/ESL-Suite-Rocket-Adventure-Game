@@ -77,6 +77,9 @@ var colliDetect = {
                 return ele.project(new Vector(1, 0));
             });
 
+        //------------------------------
+        //  Get which is in the front
+        //------------------------------
         var front = poly1Proj, back = poly2Proj;
         if (poly1Proj[0].x < poly2Proj[0].x) {
             front = poly2Proj;
@@ -105,4 +108,5 @@ var colliDetect = {
     }
 };
 
+//  Exports
 module.exports = colliDetect;
