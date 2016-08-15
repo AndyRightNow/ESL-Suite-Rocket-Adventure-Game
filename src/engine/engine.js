@@ -16,21 +16,21 @@ var Engine = {
     _gameLoop: null,
     _isResetting: false,
 
+    /*
+     * Init basic facilities of the engine
+     *
+     * @param {String} canvasId: The id of the canvas
+     */
     init: function(canvasId) {
         GraphicsContext.init(canvasId);
         InputClass.init();
     },
 
-    pause: function() {
-        Timer.pause();
-        this._isPaused = true;
-    },
-
-    resume: function() {
-        Timer.resume();
-        this._isPaused = false;
-    },
-
+    /*
+     * Reset the engine and the game
+     *
+     * @param {Function} gameResetFunc: The function to reset the game
+     */
     reset: function(gameResetFunc) {
         this._isResetting = true;
         InputClass.resetClicks();
@@ -38,6 +38,12 @@ var Engine = {
         this._isResetting = false;
     },
 
+    /*
+     * Start the game loop with the game
+     *
+     * @param {Function} gameMainFunc: The main game function
+     * @param {Number} interval: The interval between two ticks. It's 1(ms) by default.
+     */
     start: function(gameMainFunc, interval) {
         interval = interval || 1;
         interval = interval < 1 ? 1 : interval;
@@ -50,6 +56,10 @@ var Engine = {
         }, interval);
     },
 
+    /*
+     * Shut down the game loop
+     *
+     */
     shutdown: function() {
         clearInterval(this._gameLoop);
     }
