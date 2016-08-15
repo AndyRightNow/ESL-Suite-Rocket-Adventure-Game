@@ -2,3 +2,4 @@ spec
 node_modules
 test/htmltest
 test
+webpack.config.js
