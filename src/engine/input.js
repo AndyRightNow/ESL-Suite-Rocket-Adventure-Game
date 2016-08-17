@@ -52,11 +52,11 @@ var InputClass = {
         //  Get the mouse coordinates
         //-------------------------------
         document.addEventListener("mousemove", function(event) {
-            var canvasOffsetLeft = GraphicsContext.offsetLeft();
-            var canvasOffsetTop = GraphicsContext.offsetTop();
+            var canvasOffsetLeft = GraphicsContext.canvas().getBoundingClientRect().left;
+            var canvasOffsetTop = GraphicsContext.canvas().getBoundingClientRect().top;
             if (InputClass._mouseMove) {
-                InputClass._mouseX = event.pageX - canvasOffsetLeft;
-                InputClass._mouseY = event.pageY - canvasOffsetTop;
+                InputClass._mouseX = event.clientX - canvasOffsetLeft;
+                InputClass._mouseY = event.clientY - canvasOffsetTop;
                 InputClass._lastMouseX = InputClass._mouseX;
                 InputClass._lastMouseY = InputClass._mouseY;
             } else {
