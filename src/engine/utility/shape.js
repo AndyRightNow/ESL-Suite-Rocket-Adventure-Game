@@ -210,7 +210,7 @@ Polygon.prototype.translate = function(x, y) {
  * Rotate the polygon and the bounding box
  *
  * @return {Polygon} itself for chaining
- * @param {Number} x, y: The angle to Rotate
+ * @param {Number} angle: The angle to Rotate
  */
 Polygon.prototype.rotate = function(angle) {
     this._totalRotation += angle;
